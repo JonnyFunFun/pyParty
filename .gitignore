@@ -1,4 +1,10 @@
 *.log
 *.pot
 *.pyc
+*.db
+*~
 local_settings.py
+static/
+
+.venv
+.idea

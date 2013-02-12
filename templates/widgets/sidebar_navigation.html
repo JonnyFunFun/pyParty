@@ -44,15 +44,7 @@
         </ul>
     </li>
     <li>
-        <a href="/shoutbox/" title="gallery">
-            <div class="helper-font-24">
-                <i class="icofont-bullhorn"></i>
-            </div>
-            <span class="sidebar-text">shoutbox</span>
-        </a>
-    </li>
-    <li>
-        <a href="/servers/" title="gallery">
+        <a href="/servers/" title="servers">
             <div class="helper-font-24">
                 <i class="icofont-hdd"></i>
             </div>
@@ -68,6 +60,14 @@
         </a>
     </li>
     <li>
+        <a href="/benchmarks/" title="benchmarks">
+            <div class="helper-font-24">
+                <i class="icofont-bar-chart"></i>
+            </div>
+            <span class="sidebar-text">benchmarks</span>
+        </a>
+    </li>
+    <li>
         <a href="/gallery/" title="gallery">
             <div class="helper-font-24">
                 <i class="icofont-picture"></i>
@@ -75,6 +75,7 @@
             <span class="sidebar-text">gallery</span>
         </a>
     </li>
+{% if request.user.profile.admin %}
     <li>
         <a href="/admin/" title="gallery">
             <div class="helper-font-24">
@@ -83,4 +84,5 @@
             <span class="sidebar-text">admin</span>
         </a>
     </li>
+{% endif %}
 </ul>

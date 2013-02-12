@@ -10,3 +10,6 @@ class UserProfile(models.Model):
         verbose_name=_('user'),
         related_name='my_profile')
     hostname = models.CharField(max_length=64)
+    admin = models.BooleanField(default=False)
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

@@ -79,6 +79,11 @@
     text-shadow: 0px 1px 1px #4d4d4d;
 }
 
+.navbar-helper .panel-ext {
+    padding-top: 12px!important;
+    padding-right: 48px;
+}
+
 .panel-search .form-search .search-query{
     color: #444444;
 }
@@ -1164,7 +1169,7 @@ ul.dropdown-notification > li.dropdown-header:hover{
 
 /* content-body */
 .content > .content-body{
-    padding: 40px 20px 40px 20px;
+    padding: 10px 20px 40px 20px;
     font-size: .9em;
     background: #FFFFFF url('../img/noise.png');
 }

@@ -1,5 +1,4 @@
 from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest
 from models import Message
 import simplejson as json
@@ -14,7 +13,7 @@ def sync(request):
     ret = []
     for message in messages:
         ret.append(message.chatbox_element)
-    return HttpResponse(json.dumps(ret), content_type='application/json')
+    return HttpResponse(json.dumps({'success': True, 'messages': ret}), content_type='application/json')
 
 
 @require_POST

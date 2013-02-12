@@ -1,0 +1,14 @@
+
+<div class="panel-ext">
+    <div class="btn-group">
+        <a class="btn btn-inverse btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icofont-user"></i>&nbsp;&nbsp;{{ request.user.username }}
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li><a tabindex="-1" href="/accounts/profile/">View/Edit My Profile</a></li>
+            <li><a tabindex="-1" href="/benchmarks/mine/">My Benchmarks</a></li>
+            <li class="divider"></li>
+            <li><a tabindex="-1" href="/accounts/goodbye/">Leaving the LAN?</a></li>
+        </ul>
+    </div>
+</div>

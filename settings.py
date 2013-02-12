@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'admin',
     'dashboard',
     'music',
+    'benchmarks',
     'noms',
     'servers',
     'tournaments',

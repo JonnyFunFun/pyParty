@@ -4,6 +4,7 @@ SETTING_DEFAULTS = {
     'site_name': 'pyParty LAN Party',
     'welcome_msg': 'Welcome to a pyParty-powered LAN!',
     'site_title': '<span class="color-teal">py</span>Party',
+    'lan_name': 'pyParty'
 }
 
 def get_setting(name):

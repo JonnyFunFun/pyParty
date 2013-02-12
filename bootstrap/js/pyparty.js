@@ -32,9 +32,13 @@ function syncChatMessages() {
         url: '/chat/sync/',
         dataType: 'json',
         success: function(data) {
-            console.log(data);
+            if (data.success == true) {
+                for (var i=0;i<data.messages.length;i++)
+                    $('div#chat_message_box').append(data.messages[i]);
+            }
         }
-    })
+    });
+    setTimeout(syncChatMessages, 2000);
 }
 
 var ME;

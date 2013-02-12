@@ -7,5 +7,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include('admin.urls')),# or include(admin.site.urls)),
     url(r'accounts/', include('userena.urls')),
     url(r'chat/', include('chat.urls')),
+    url(r'music/', include('music.urls')),
     url(r'', 'dashboard.views.index')
 )

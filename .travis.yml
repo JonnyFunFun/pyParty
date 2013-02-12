@@ -4,5 +4,4 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - python manage.py test accounts music noms servers tournaments
-
+  - python manage.py test accounts music noms servers tournaments dashboard chat admin gallery

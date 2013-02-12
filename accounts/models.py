@@ -1,9 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
-from userena.models import UserenaBaseProfile
 
-class UserProfile(UserenaBaseProfile):
+class UserProfile(models.Model):
     class Meta:
         app_label = 'accounts'
     user = models.OneToOneField(User,

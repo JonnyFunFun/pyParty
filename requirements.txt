@@ -1,11 +1,10 @@
 Django==1.4.3
 PIL==1.1.7
 distribute==0.6.28
-django-guardian==1.0.4
-django-userena==1.1.2
 easy-thumbnails==1.2
 id3reader==1.53.20070415
 iptools==0.4.0
 mock==1.0.1
+simplejson==3.0.7
 sphinx-me==0.1.2
 wsgiref==0.1.2

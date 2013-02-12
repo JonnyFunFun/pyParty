@@ -1,0 +1,22 @@
+<!--sidebar-right-header-->
+<div class="sidebar-right-header">
+    <div class="sr-header-left">
+        <p class="bold">Chat Box</p>
+        <small><i class="icofont-certificate color-green"></i> <span id="me_name">{{ request.user.username }}</span></small>
+
+    </div>
+</div><!--/sidebar-right-header-->
+<!-- sidebar-right-content -->
+<div class="sidebar-right-content">
+        <!--content part-->
+        <div class="chat-content" id="chat_message_box">
+        {% for message in chat_messages %}
+            {{ message.chatbox_element|safe }}
+        {% endfor %}
+        </div>
+        <!--input part-->
+        <div class="chat-input">
+            <textarea class="input-block-level" placeholder="chat here..." id="chat_message_input"></textarea>
+        </div>
+
+</div><!-- /sidebar-right-content -->

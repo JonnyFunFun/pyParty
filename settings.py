@@ -105,8 +105,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "context_processors.template_debug",
-    "context_processors.site_name",
-    "context_processors.site_title",
+    "context_processors.settings_for_view",
+    "context_processors.active_section",
     "chat.context_processors.chat_box_messages"
 
 )
@@ -122,10 +122,14 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 ROOT_URLCONF = 'urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
@@ -137,7 +141,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'easy_thumbnails',
+    'crispy_forms',
     'accounts',
     'admin',
     'dashboard',

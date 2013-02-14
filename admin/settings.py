@@ -1,11 +1,4 @@
-from models import Setting
-
-SETTING_DEFAULTS = {
-    'site_name': 'pyParty LAN Party',
-    'welcome_msg': 'Welcome to a pyParty-powered LAN!',
-    'site_title': '<span class="color-teal">py</span>Party',
-    'lan_name': 'pyParty'
-}
+from models import Setting, SETTING_DEFAULTS
 
 def get_setting(name):
     try:

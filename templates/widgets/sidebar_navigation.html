@@ -1,5 +1,5 @@
 <ul class="sidebar">
-    <li class="active first"> <!--always define class .first for first-child of li element sidebar left-->
+    <li class="{% if ACTIVE_SECTION == '' %}active {% endif %}first"> <!--always define class .first for first-child of li element sidebar left-->
         <a href="/" title="dashboard">
             <div class="helper-font-24">
                 <i class="icofont-dashboard"></i>
@@ -7,7 +7,7 @@
             <span class="sidebar-text">dashboard</span>
         </a>
     </li>
-    <li>
+    <li{% if ACTIVE_SECTION == 'accounts' %} class="active"{% endif %}>
         <a href="/accounts/" title="interface">
             <div class="helper-font-24">
                 <i class="icofont-user"></i>
@@ -15,7 +15,8 @@
             <span class="sidebar-text">people</span>
         </a>
     </li>
-    <li>
+{% if ENABLE_MUSIC == '1' %}
+    <li{% if ACTIVE_SECTION == 'music' %} class="active"{% endif %}>
         <a href="/music/" title="form">
             <div class="helper-font-24">
                 <i class="icofont-music"></i>
@@ -43,7 +44,9 @@
             </li>
         </ul>
     </li>
-    <li>
+{% endif %}
+{% if ENABLE_SERVERS == '1' %}
+    <li{% if ACTIVE_SECTION == 'servers' %} class="active"{% endif %}>
         <a href="/servers/" title="servers">
             <div class="helper-font-24">
                 <i class="icofont-hdd"></i>
@@ -51,7 +54,9 @@
             <span class="sidebar-text">servers</span>
         </a>
     </li>
-    <li>
+{% endif %}
+{% if ENABLE_TOURNAMENTS == '1' %}
+    <li{% if ACTIVE_SECTION == 'tournaments' %} class="active"{% endif %}>
         <a href="/tournaments/" title="charts">
             <div class="helper-font-24">
                 <i class="icofont-flag"></i>
@@ -59,7 +64,19 @@
             <span class="sidebar-text">tournaments</span>
         </a>
     </li>
-    <li>
+{% endif %}
+{% if ENABLE_NOMS == '1' %}
+    <li{% if ACTIVE_SECTION == 'noms' %} class="active"{% endif %}>
+        <a href="/noms/" title="noms">
+            <div class="helper-font-24">
+                <i class="icofont-glass"></i>
+            </div>
+            <span class="sidebar-text">noms</span>
+        </a>
+    </li>
+{% endif %}
+{% if ENABLE_BENCHMARKS == '1' %}
+    <li{% if ACTIVE_SECTION == 'benchmarks' %} class="active"{% endif %}>
         <a href="/benchmarks/" title="benchmarks">
             <div class="helper-font-24">
                 <i class="icofont-bar-chart"></i>
@@ -67,7 +84,9 @@
             <span class="sidebar-text">benchmarks</span>
         </a>
     </li>
-    <li>
+{% endif %}
+{% if ENABLE_GALLERY == '1' %}
+    <li{% if ACTIVE_SECTION == 'gallery' %} class="active"{% endif %}>
         <a href="/gallery/" title="gallery">
             <div class="helper-font-24">
                 <i class="icofont-picture"></i>
@@ -75,8 +94,9 @@
             <span class="sidebar-text">gallery</span>
         </a>
     </li>
+{% endif %}
 {% if request.user.profile.admin %}
-    <li>
+    <li{% if ACTIVE_SECTION == 'admin' %} class="active"{% endif %}>
         <a href="/admin/" title="gallery">
             <div class="helper-font-24">
                 <i class="icofont-cogs"></i>

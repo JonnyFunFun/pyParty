@@ -8,3 +8,4 @@ static/
 debug
 .venv
 .idea
+.ds_store

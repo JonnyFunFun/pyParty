@@ -9,3 +9,4 @@ debug
 .venv
 .idea
 .ds_store
+media/*

@@ -16,7 +16,10 @@
         </div>
         <!--input part-->
         <div class="chat-input">
-            <textarea class="input-block-level" placeholder="chat here..." id="chat_message_input"></textarea>
+            <form action="/chat/post/">
+                {% csrf_token %}
+                <textarea name="message" class="input-block-level" placeholder="chat here..." id="chat_message_input"></textarea>
+            </form>
         </div>
 
 </div><!-- /sidebar-right-content -->

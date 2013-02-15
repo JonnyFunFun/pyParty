@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from settings import save_setting
+from models import PYPARTY_SETTINGS
 from forms import SettingsForm
 
 @admin_only
@@ -26,7 +28,7 @@ def settings(request):
 @require_POST
 def save_settings(request):
     if request.POST.get('save_changes'):
+        for i,key in enumerate(PYPARTY_SETTINGS):
+            save_setting(key, request.POST.get(key,'0'))
         messages.success(request, "Your settings were saved successfully!")
-        return HttpResponseRedirect('/admin/settings/')
-    else:
-        return HttpResponseRedirect('/admin/')
+    return HttpResponseRedirect('/admin/')

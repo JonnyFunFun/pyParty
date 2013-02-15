@@ -1,0 +1,13 @@
+{% extends 'application.html' %}
+
+{% block content %}
+    {% if user == request.user %}
+        <a href="/accounts/profile/edit/" class="btn btn-info pull-right">Edit my profile</a>
+    {% elif request.user.is_admin %}
+        <div class="btn-group pull-right">
+            <a href="/admin/users/{{ user.id }}/" class="btn btn-info">Edit</a>
+            <a href="/admin/users/{{ user.id }}/delete/" class="btn btn-danger">Delete</a>
+        </div>
+    {% endif %}
+    <blockquote>{{ user.profile.quote }}</blockquote>
+{% endblock %}

@@ -21,8 +21,10 @@ DATABASES = {
     }
 }
 
+# Dynamic application path
 APP_PATH = os.path.realpath(os.path.dirname(__file__))
 
+# Email settings, we don't really need email for this at all
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 # Local time zone for this installation. Choices can be found here:
@@ -103,6 +105,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
+    "django.core.context_processors.csrf",
     "django.contrib.messages.context_processors.messages",
     "context_processors.template_debug",
     "context_processors.settings_for_view",
@@ -122,7 +125,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
@@ -182,3 +185,6 @@ LOGGING = {
         },
     }
 }
+
+# pyParty-related settings
+PARTY_CHAT_MESSAGE_PURGE = 24#hours

@@ -1,6 +1,7 @@
 from django.db import models
 
-SETTING_DEFAULTS = {
+# list of settings and their defaults
+PYPARTY_SETTINGS = {
     'site_name': 'pyParty LAN Party',
     'welcome_msg': 'Welcome to a pyParty-powered LAN!',
     'site_title': '<span class="color-teal">py</span>Party',

@@ -135,7 +135,6 @@ function sendChatMessage(msg) {
         url: '/chat/post/',
         dataType: 'json',
         success: function(data) {
-            console.log(data);
             if (data.success == true) {
                 $('div#chat_message_box').append(data.child);
             } else {
@@ -173,7 +172,8 @@ $(document).ready(function() {
             /* send the chat message */
             var message = $(this).val();
             sendChatMessage(message);
-            $(this).val(null);
+            $(this).val('')[0].focus();
+            e.preventDefault();
         }
     });
     setTimeout(syncChatMessages, 2000);

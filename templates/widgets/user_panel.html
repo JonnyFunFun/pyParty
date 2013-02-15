@@ -6,7 +6,12 @@
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a tabindex="-1" href="/accounts/profile/">View/Edit My Profile</a></li>
+        {% if ENABLE_TOURNAMENTS == '1' %}
+            <li><a tabindex="-1" href="/tournaments/mine/">My Tournament Registrations</a></li>
+        {% endif %}
+        {% if ENABLE_BENCHMARKS == '1' %}
             <li><a tabindex="-1" href="/benchmarks/mine/">My Benchmarks</a></li>
+        {% endif %}
             <li class="divider"></li>
             <li><a tabindex="-1" href="/accounts/goodbye/">Leaving the LAN?</a></li>
         </ul>

@@ -1,4 +1,4 @@
-from models import UserProfile
+from models import UserProfile, FLAG_ADMIN
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import HttpResponseRedirect
@@ -30,7 +30,7 @@ class PyPartyAccountAndAuthenticationMiddleware(object):
             profile = UserProfile()
             profile.user = user
             profile.hostname = hostname
-            profile.admin = first_admin
+            profile.set_flag(FLAG_ADMIN)
             profile.save()
             request.user = user
             user = auth.authenticate(username=username, password=random_password)

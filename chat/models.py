@@ -14,10 +14,11 @@ class Message(models.Model):
         return """
             <div class="chat-out" data-id="%s">
                 <span class="chat-time">%s</span>
-                <strong class="chat-user">%s: </strong>
+                <strong class="chat-user color-%s">%s: </strong>
                 <div class="chat-text">%s</div>
             </div>
             """ % (self.id,
                    self.time.strftime("%I:%M%p").lower(),
+                   self.user.get_profile().chat_color,
                    self.user.username,
                    self.message)

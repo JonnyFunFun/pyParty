@@ -8,5 +8,4 @@ iptools==0.4.0
 mock==1.0.1
 simplejson==3.0.7
 sphinx-me==0.1.2
-sorl-thumbnail==11.12
 wsgiref==0.1.2

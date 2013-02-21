@@ -1,8 +1,10 @@
 from django.conf import settings
 from admin.settings import get_setting
 
+
 def template_debug(context):
     return {'TEMPLATE_DEBUG': settings.TEMPLATE_DEBUG}
+
 
 def settings_for_view(context):
     return {'SITE_NAME': get_setting('site_name'),
@@ -12,12 +14,16 @@ def settings_for_view(context):
             'ENABLE_GALLERY': get_setting('enable_gallery'),
             'ENABLE_TOURNAMENTS': get_setting('enable_tournaments'),
             'ENABLE_SERVERS': get_setting('enable_servers'),
-            'ENABLE_NOMS': get_setting('enable_noms')
+            'ENABLE_NOMS': get_setting('enable_noms'),
+            'THUMB_X': settings.THUMBNAIL_SIZE[0],
+            'THUMB_Y': settings.THUMBNAIL_SIZE[1]
     }
+
 
 def active_section(context):
     try:
         active = context.path.split("/")[1]
     except:
+        # shouldn't ever fail here
         active = ''
     return {'ACTIVE_SECTION': active}

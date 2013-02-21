@@ -9,5 +9,8 @@
             <a href="/admin/users/{{ user.id }}/delete/" class="btn btn-danger">Delete</a>
         </div>
     {% endif %}
-    <blockquote>{{ user.profile.quote }}</blockquote>
+    <img src="{{ user.profile.avatar_thumb }}" style="width: {{ THUMB_X }}px; height:  {{ THUMB_Y }}px;" class="pull-left"/>
+    <blockquote class="profile-quote pull-left">{{ user.profile.quote }}</blockquote>
+    <div class="clearfix"></div>
+    {{ user.profile.about_me }}
 {% endblock %}

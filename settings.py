@@ -134,6 +134,10 @@ ROOT_URLCONF = 'urls'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 
+THUMBNAIL_SIZE = (120, 120)
+
+DISABLE_THUMBNAILS = os.name in ('nt', 'os2', 'ce', 'riscos', )
+
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
 

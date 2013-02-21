@@ -18,7 +18,7 @@ def edit_profile(request):
 
 # shortcut
 def view_profile(request):
-    return HttpResponseRedirect('/accounts/user/'+request.user.username.lower())
+    return HttpResponseRedirect('/accounts/user/%s' % request.user.username.lower())
 
 
 @require_POST

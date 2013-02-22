@@ -7,4 +7,4 @@ install:
   - pip install -r requirements.txt
 script:
   - python manage.py collectstatic --noinput
-  - python manage.py test accounts music noms servers tournaments dashboard chat admin gallery benchmarks admin.accounts admin.music admin.noms admin.servers admin.tournaments admin.gallery admin.benchmarks
+  - python manage.py test accounts music noms servers tournaments dashboard chat admin gallery benchmarks 

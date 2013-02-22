@@ -71,8 +71,8 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Bootstrap by Twitter
-    re.sub(r'settings\.pyc?', 'bootstrap/', os.path.realpath(__file__)),
+    # Bootstrap by Twitter and our theme stuff
+    os.path.join(APP_PATH, 'bootstrap'),
 )
 
 # List of finder classes that know how to find static files in

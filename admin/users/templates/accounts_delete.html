@@ -1,0 +1,35 @@
+{% extends 'application.html' %}
+
+{% block content %}
+    <div class="box-body">
+        <form class="well-small well" action="." method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Are you sure you want to delete this user?</legend>
+                <div class="pull-left">
+                    <img src="{{ profile.avatar_thumb }}" style="width: {{ THUMB_X }}px; height:  {{ THUMB_Y }}px;" class="pull-left"/>
+                </div>
+                <div class="pull-left">&nbsp;</div>
+                <div class="pull-left">
+                    <h3>{{ profile.user.username }}</h3>
+                    {% if profile.admin %}
+                        <span class="label label-important">Admin</span>
+                    {% endif %}
+
+                    {% if profile.operator %}
+                        <span class="label label-warning">Op</span>
+                    {% endif %}
+
+                    {% if profile.vip %}
+                        <span class="label label-info">VIP</span>
+                    {% endif %}
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-actions">
+                    <button type="submit" name="axn" value="delete" class="btn btn-danger">Yes, Delete!</button>
+                    <button type="submit" name="axn" value="cancel" class="btn">Cancel</button>
+                </div>
+            </fieldset>
+        </form>
+    </div><!-- /box-body -->
+{% endblock %}

@@ -96,6 +96,8 @@ class UserProfile(models.Model):
 
     @property
     def avatar_thumb(self):
+        if not self.avatar:
+            return "%s%s" % (settings.STATIC_URL, 'images/avatar_default.jpg')
         if settings.DISABLE_THUMBNAILS is True:
             return self.avatar.url
         else:

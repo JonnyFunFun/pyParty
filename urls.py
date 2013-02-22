@@ -13,8 +13,8 @@ urlpatterns = patterns('',
     url(r'servers/', include('servers.urls')),
     url(r'tournaments/', include('tournaments.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    (r'^favicon.ico$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT, 'path': 'favicon.ico'}),
+    url(r'^favicon.ico$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT, 'path': 'favicon.ico'}),
+    # always do this, even in production
+    url(r'^%s(?P<path>.*)$' % settings.STATIC_URL.lstrip('/'), 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     url(r'^/?$', 'dashboard.views.index')
 )
-# always do this, even in production
-urlpatterns += staticfiles_urlpatterns()

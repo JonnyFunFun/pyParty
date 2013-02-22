@@ -1,0 +1,40 @@
+{% extends 'application.html' %}
+
+{% block content %}
+    <div class="box-body">
+        <table id="datatables" class="table table-bordered table-striped responsive">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Host</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for account in accounts %}
+                <tr>
+                    <td>
+                        {% if account.admin %}
+                            <i class="icofont-user-md color-{{ account.chat_color }}"></i>
+                        {% elif account.op %}
+                            <i class="icofont-beaker color-{{ account.chat_color }}"></i>
+                        {% elif account.vip %}
+                            <i class="icofont-trophy color-{{ account.chat_color }}"></i>
+                        {% else %}
+                            <i class="icofont-user color-{{ account.chat_color }}"></i>
+                        {% endif %}
+                        {{ account.username }}</td>
+                    <td>{{ account.hostname }}</td>
+                    <td class="center">
+                        <div class="btn-group">
+                            <a href="/accounts/profile/{{ account.username }}/" class="btn btn-info">View</a>
+                            <a href="/admin/users/{{ account.user.id }}/" class="btn btn-inverse">Edit</a>
+                            <a href="/admin/users/{{ account.user.id }}/delete/" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div><!-- /box-body -->
+{% endblock %}

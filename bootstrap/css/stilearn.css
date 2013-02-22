@@ -2613,3 +2613,37 @@ footer {
 div.content-header h2 small {
     padding-left: 12px;
 }
+
+blockquote.profile-quote {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    width: 500px;
+    margin: 0.25em 0 1em 2em;
+    padding: 0.25em 40px;
+    line-height: 1.45;
+    position: relative;
+    color: #383838;
+    border-left: none;
+}
+
+blockquote.profile-quote:before {
+    display: block;
+    content: "\201C";
+    font-size: 80px;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    color: #7a7a7a;
+}
+
+blockquote.profile-quote cite {
+    color: #999999;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+blockquote.profile-quote cite:before {
+    content: "\2014 \2009";
+}

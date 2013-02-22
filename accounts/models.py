@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from rig_info import *
+from django.conf import settings
+from PIL import Image
+import os.path
+
 
 FLAG_ADMIN = 32
 FLAG_OP = 16
@@ -37,7 +41,7 @@ class UserProfile(models.Model):
 
     hdd_space = models.IntegerField(blank=True, null=True, verbose_name="HDD Space")
 
-    case =  models.CharField(max_length=128, blank=True)
+    case = models.CharField(max_length=128, blank=True)
     monitor = models.CharField(max_length=128, blank=True)
 
     comments = models.TextField(blank=True)
@@ -90,9 +94,27 @@ class UserProfile(models.Model):
             return 'blue'
         return 'black'
 
+    @property
+    def avatar_thumb(self):
+        if settings.DISABLE_THUMBNAILS is True:
+            return self.avatar.url
+        else:
+            path, ext = os.path.splitext(self.avatar.path)
+            thumbnail = '%s.thumb.jpg' % path
+            if not os.path.exists(thumbnail):
+                # generate a thumb
+                image = Image.open(self.avatar.path)
+                if image.mode not in ('L', 'RGB'):
+                    image = image.convert('RGB')
+                image = image.resize(settings.THUMBNAIL_SIZE, Image.ANTIALIAS)
+                image.save(os.path.join(settings.MEDIA_ROOT, thumbnail), 'JPG')
+        return "%s%s" % (settings.MEDIA_URL, thumbnail)
+
+
 # User => Profile shortcuts
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 User.is_admin = property(lambda u: u.profile.admin)
 User.is_operator = property(lambda u: u.profile.operator)
 User.is_vip = property(lambda u: u.profile.vip)
 User.full_handle = property(lambda u: u.profile.full_handle)
+User.url = property(lambda u: "/accounts/user/%s" % u.username.lower())

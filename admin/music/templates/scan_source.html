@@ -1,0 +1,12 @@
+{% extends 'application.html' %}
+
+{% block content %}
+    <div class="box-body">
+        <h4>Scanning {{ source.path }}...</h4>
+        <iframe src="/admin/music/source/{{ source.id }}/scan/do/" width="100%" height="400px" frameborder="0"></iframe>
+        <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> Navigating away from this page may interrupt the scan.
+        </div>
+    </div><!-- /box-body -->
+{% endblock %}

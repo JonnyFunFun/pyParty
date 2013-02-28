@@ -18,3 +18,4 @@ class Request(models.Model):
     song = models.ForeignKey(Music)
     votes = models.IntegerField(default=1)
     received_at = models.DateTimeField(auto_now_add=True)
+    fulfilled = models.BooleanField(default=False)

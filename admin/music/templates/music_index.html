@@ -1,0 +1,46 @@
+{% extends 'application.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="span7">
+        <h2>Music Sources</h2>
+        <table id="datatables" class="table table-bordered table-striped responsive">
+            <thead>
+                <tr>
+                    <th>Path</th>
+                    <th>Music Files</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for source in sources %}
+                <tr>
+                    <td>{{ source.path }}</td>
+                    <td>{{ source.music_set.count }}</td>
+                    <td class="center">
+                        <div class="btn-group">
+                            <a href="/admin/music/source/{{ source.id }}/" class="btn btn-info">View</a>
+                            <a href="/admin/music/source/{{ source.id }}/scan/" class="btn btn-success">Rescan</a>
+                            <a href="/admin/music/source/{{ source.id }}/edit/" class="btn btn-inverse">Edit</a>
+                            <a href="/admin/music/source/{{ source.id }}/delete/" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div><!-- /box-body -->
+    <div class="span4">
+        <div class="well">
+            <h4>Add a Source</h4>
+            {% crispy add_form %}
+        </div>
+        <div class="well">
+            <h4>Stats</h4>
+            <p>Total Music Files: <strong>{{ total_music }}</strong></p>
+            <p>Total Requests: <strong>{{ total_requests }}</strong></p>
+            <p>Outstanding Requests: <strong>{{ outstanding_requests }}</strong></p>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

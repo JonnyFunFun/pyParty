@@ -19,8 +19,3 @@ def stream(request):
     response['icy-metaint'] = str(CHUNKSIZE)
     response['icy-br'] = "128"
     return response
-
-@condition(etag_func=None)
-@require_POST
-def rescan(request):
-    return HttpResponse(scan_media(), content_type='text/html')

@@ -1,21 +1,14 @@
 from django.views.decorators.http import condition
-from django.http import HttpResponse
-from django.core.urlresolvers import resolve
-from django.views.decorators.http import require_POST
-from shoutcast import ShoutCastStream, CHUNKSIZE
-from scanner import scan_media
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.messages import warning
+from shoutcast import ShoutCastStream
+from models import Music
+
 
 @condition(etag_func=None)
 def stream(request):
-    shoutcast = ShoutCastStream()
-    response = HttpResponse(shoutcast, content_type='audio/mpeg')
-    # set our headers
-    response['icy-notice1'] = "<BR>This stream requires"
-    response['icy-notice2'] = "Winamp, or another streaming media player<BR>"
-    response['icy-name'] = "pyParty ShoutCast"
-    response['icy-genre'] = "Mixed"
-    response['icy-url'] = resolve(request.path_info).url_name
-    response['icy-pub'] = "1"
-    response['icy-metaint'] = str(CHUNKSIZE)
-    response['icy-br'] = "128"
+    if Music.currently_playing() is not None:
+        warning(request, "Only one Shoutcast stream may be active at any time")
+        return HttpResponseRedirect("/")
+    response = HttpResponse(ShoutCastStream(request))
     return response

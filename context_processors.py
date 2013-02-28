@@ -1,5 +1,6 @@
 from django.conf import settings
 from admin.settings import get_setting
+from music.models import Music
 
 
 def template_debug(context):
@@ -16,7 +17,8 @@ def settings_for_view(context):
             'ENABLE_SERVERS': get_setting('enable_servers'),
             'ENABLE_NOMS': get_setting('enable_noms'),
             'THUMB_X': settings.THUMBNAIL_SIZE[0],
-            'THUMB_Y': settings.THUMBNAIL_SIZE[1]
+            'THUMB_Y': settings.THUMBNAIL_SIZE[1],
+            'MUSIC_PLAYING': Music.currently_playing()
     }
 
 

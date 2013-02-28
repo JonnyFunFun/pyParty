@@ -42,7 +42,7 @@ def scan_media(source_id=None):
     yield """
                 <br/><br/>
                 <strong>Done!</strong><br/>
-                %s music files were added!
+                %s music files were added or updated!
                 <script type=\"text/javascript\">scrollBottom();</script>
             </body>
         </html>
@@ -74,19 +74,23 @@ def process_file(f, source_id):
     if extension == '.mp3':
         # found a MP3!
         id3 = id3reader.Reader(f)
+        album = id3.getValue('album')
+        artist = id3.getValue('performer') or album
+        title = id3.getValue('title')
         try:
-            Music.objects.get(filename=f)
+            m = Music.objects.get(filename=f)
         except Music.DoesNotExist:
-            album = id3.getValue('album')
-            artist = id3.getValue('artist') or album
-            title = id3.getValue('title')
-            if title is not None and artist is not None:
-                m = Music()
-                m.album = album
-                m.artist = artist
-                m.title = title
-                m.filename = f
-                m.source_id = source_id
-                m.save()
-                return 1
+            # new one
+            m = Music()
+        if title is not None and artist is not None:
+            m.album = album
+            m.artist = artist
+            m.title = title
+        else:
+            # determine it from the filename? TODO
+            return 0  #skip for now
+        m.filename = f
+        m.source_id = source_id
+        m.save()
+        return 1
     return 0

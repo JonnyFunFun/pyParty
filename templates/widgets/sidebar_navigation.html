@@ -24,9 +24,13 @@
             <span class="sidebar-text">music</span>
         </a>
         <ul class="sub-sidebar-form corner-top shadow-white">
-            <li class="title muted">Quick Upload</li>
+            <li class="title muted">Currently Playing</li>
             <li>
-                <input type="file" data-form="uniform" onchange="alert('your progres uploading file...')" />
+                {% if MUSIC_PLAYING %}
+                    {{ MUSIC_PLAYING.artist }} - {{ MUSIC_PLAYING.title }}
+                {% else %}
+                    Nothing is currently playing
+                {% endif %}
             </li>
             <li class="divider"></li>
             <li>

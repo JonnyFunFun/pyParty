@@ -1,6 +1,5 @@
 String.prototype.f = function() {
     var s = this, i = arguments.length;
-    console.log(arguments.length);
     while (i--)
         s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
     return s;
@@ -163,6 +162,8 @@ function syncChatMessages() {
 }
 
 var ME;
+var musicSearchTimeout=null;
+var musicSearchRequest=null;
 
 $(document).ready(function() {
     ME = $('span#me_name').html() || "Unknown User";
@@ -178,8 +179,70 @@ $(document).ready(function() {
     });
     setTimeout(syncChatMessages, 2000);
     /* ios style checkboxes */
+    setTimeout(syncCurrentlyPlaying, 15000);
     $('input:checkbox:not(.nostyle)').checkbox();
+    /* music search */
+    $('input#music_search_input').keypress(function(e) {
+        if (e.keyCode == 13) /* enter */ {
+            if (musicSearchTimeout)
+                clearTimeout(musicSearchTimeout);
+            searchMusic();
+            e.preventDefault();
+        } else {
+            /* all other keys */
+            if (musicSearchTimeout)
+                clearTimeout(musicSearchTimeout);
+            musicSearchTimeout = setTimeout(searchMusic, 500);
+        }
+    })
 });
+
+/* sync currently playing */
+function syncCurrentlyPlaying() {
+    $.ajax({
+        type: 'GET',
+        url: '/music/current/',
+        contentType: 'application/json',
+        success: function(data) {
+            console.log(data);
+            $('#music_currently_playing').html((data.artist != undefined) ? "<em>{0}</em> - {1}".f(data.artist, data.title) : "Nothing is currently playing");
+            setTimeout(syncCurrentlyPlaying, 15000);
+        }
+    });
+}
+
+/* music search */
+function searchMusic() {
+    var search = $('input#music_search_input').val();
+    if (musicSearchRequest)
+        musicSearchRequest.abort();
+    musicSearchRequest = $.ajax({
+        type: 'POST',
+        data: {s:search},
+        url: '/music/search/',
+        dataType: 'json',
+        success: function(data) {
+            var results = $('div#music_search_results').html('').append('<ul></ul>');
+            $.each(data, function(k,song) {
+                results.append($('<li></li>').html("<em>{0}</em> - {1}".f(song.artist, song.title)).attr('data-id',song.id).click(function() {
+                    requestMusic(song.id);
+                    $(this).addClass('requested');
+                }));
+            });
+            musicSearchRequest = null;
+        }
+    });
+}
+
+/* request music */
+function requestMusic(id) {
+    $.ajax({
+        type: 'POST',
+        data: {song:id},
+        url: '/music/request/',
+        dataType: 'json'
+    });
+}
 
 /* ajax csrf workaround */
 $.ajaxSetup({

@@ -3,6 +3,14 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
+class Request(models.Model):
+    requester = models.ForeignKey(User)
+    song = models.ForeignKey('Music')
+    votes = models.IntegerField(default=1)
+    received_at = models.DateTimeField(auto_now_add=True)
+    fulfilled = models.BooleanField(default=False)
+
+
 class MusicSource(models.Model):
     path = models.CharField(max_length=255)
 
@@ -31,10 +39,14 @@ class Music(models.Model):
         except Music.DoesNotExist:
             return None
 
-
-class Request(models.Model):
-    requester = models.ForeignKey(User)
-    song = models.ForeignKey(Music)
-    votes = models.IntegerField(default=1)
-    received_at = models.DateTimeField(auto_now_add=True)
-    fulfilled = models.BooleanField(default=False)
+    def request(self, user):
+        try:
+            # try an active request
+            request = Request.objects.get(fulfilled=False, song=self)
+        except Request.DoesNotExist:
+            # create a new one
+            request = Request()
+            request.requester = user
+            request.song = self
+        request.votes += 1
+        request.save()

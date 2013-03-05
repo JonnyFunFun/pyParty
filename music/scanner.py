@@ -1,4 +1,5 @@
 from models import Music, MusicSource
+from django.db import IntegrityError
 from os.path import join, splitext
 import id3reader
 import os
@@ -91,6 +92,10 @@ def process_file(f, source_id):
             return 0  #skip for now
         m.filename = f
         m.source_id = source_id
-        m.save()
-        return 1
+        try:
+            m.save()
+            return 1
+        except IntegrityError:
+            # probably missing information, skip it
+            pass
     return 0

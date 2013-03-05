@@ -23,28 +23,22 @@
             </div>
             <span class="sidebar-text">music</span>
         </a>
-        <ul class="sub-sidebar-form corner-top shadow-white">
+        <ul class="sub-sidebar-form corner-top shadow-white music-sidebar">
             <li class="title muted">Currently Playing</li>
-            <li>
+            <li id="music_currently_playing">
                 {% if MUSIC_PLAYING %}
-                    {{ MUSIC_PLAYING.artist }} - {{ MUSIC_PLAYING.title }}
+                    <em>{{ MUSIC_PLAYING.artist }}</em> - {{ MUSIC_PLAYING.title }}
                 {% else %}
                     Nothing is currently playing
                 {% endif %}
             </li>
             <li class="divider"></li>
+            <li><label for="music_search_input" class="muted">Find a song to request</label></li>
             <li>
-                <a href="form.html" title="form element" class="corner-all">
-                    <i class="icofont-file"></i>
-                    <span class="sidebar-text">Form Element</span>
-                </a>
+                <input type="text" name="s" id="music_search_input"/>
             </li>
-            <li class="divider"></li>
             <li>
-                <a href="code_editor.html" title="code editor" class="corner-all">
-                    <i class="icofont-book"></i>
-                    <span class="sidebar-text">Code Editor</span>
-                </a>
+                <div id="music_search_results"></div>
             </li>
         </ul>
     </li>

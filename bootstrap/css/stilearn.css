@@ -2647,3 +2647,29 @@ blockquote.profile-quote cite {
 blockquote.profile-quote cite:before {
     content: "\2014 \2009";
 }
+
+.music-sidebar {
+    width: 400px;
+}
+
+.music-sidebar input#music_search_input {
+    margin: auto;
+    width: 95%;
+}
+
+.music-sidebar div#music_search_results {
+    font-size: 12px;
+}
+
+div#music_search_results li {
+    border-radius: 2px;
+    cursor: pointer; cursor: hand;
+}
+
+div#music_search_results li.requested {
+    font-weight: bold;
+}
+
+div#music_search_results li:hover {
+    background-color: #d4d4d4;
+}

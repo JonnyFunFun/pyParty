@@ -26,9 +26,8 @@ def index(request, form=None):
 def add_source(request):
     add_form = NewMusicSourceForm(data=request.POST)
     if add_form.is_valid() and path.exists(request.POST.get('path')):
-        add_form.save()
-        messages.success(request, "Your new source has been added.  You may want to scan it now.")
-        add_form = None
+        source = add_form.save()
+        return HttpResponseRedirect('/admin/music/source/%s/scan/' % source.id)
     else:
         messages.error(request, "Please correct your errors and try again.")
     return index(request, add_form)

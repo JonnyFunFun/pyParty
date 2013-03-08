@@ -1,8 +1,8 @@
-import os, re
+import os
 
-DEBUG = os.path.exists('debug')
-TEMPLATE_DEBUG = DEBUG
-ASSETS_DEBUG = DEBUG
+DEBUG = True
+TEMPLATE_DEBUG = os.path.exists('debug')
+ASSETS_DEBUG = os.path.exists('debug')
 
 ADMINS = (
     ('Jonathan Enzinna', 'jonnyfunfun@gmail.com'),

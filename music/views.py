@@ -3,7 +3,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.messages import warning
 from django.utils import simplejson
 from django.db.models import Q
-from django.core import serializers
 from shoutcast import ShoutCastStream
 from global_decorators import render_to
 from models import Music
@@ -18,8 +17,11 @@ def stream(request):
     return response
 
 
-@render_to('request_home.html')
+@render_to('music_list.html')
 def index(request):
+    music_set = Music.objects.all()
+    icon = "music"
+    title = "Request A Song from the Library"
     return locals()
 
 
@@ -46,8 +48,13 @@ def request_song(request):
 
 def current(request):
     playing = Music.currently_playing()
+    data = {}
     if playing:
-        data = '{"artist": "%s", "title": "%s"}' % (playing.artist, playing.title)
-    else:
-        data = '{}'
-    return HttpResponse(data, mimetype='application/json')
+        data['artist'] = playing.artist
+        data['title'] = playing.title
+        if playing.associated_request is not None:
+            data['requested_by'] = playing.associated_request.requester.username
+        else:
+            data['requested_by'] = "Random Play"
+
+    return HttpResponse(simplejson.dumps(data), mimetype='application/json')

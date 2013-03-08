@@ -1,0 +1,51 @@
+{% extends 'application.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="span11">
+        <table id="music_table" class="table datatable table-bordered table-striped responsive" data-edit="/admin/music/song/{0}/edit/">
+            <thead>
+                <tr>
+                    <th>Artist</th>
+                    <th>Album</th>
+                    <th>Title</th>
+                    <th>File Path</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for music in source.music_set.all %}
+                <tr data-id="{{ music.id }}" class="editrow">
+                    <td data-field="artist" data-val="{{ music.artist }}">{{ music.artist }}</td>
+                    <td data-field="album" data-val="{{ music.album }}">{{ music.album }}</td>
+                    <td data-field="title" data-val="{{ music.title }}">{{ music.title }}</td>
+                    <td><small>{{ music.filename }}</small></td>
+                    <td class="center">
+                        <a data-id="{{ music.id }}" href="#" class="confirm-delete btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix"></div>
+
+
+    <!-- modal -->
+    <div id="confirm-delete-modal" class="modal hide fade">
+        <div class="modal-header">
+            <a href="#" class="close">&times;</a>
+            <h3>Delete the song?</h3>
+        </div>
+        <div class="modal-body">
+            <p>You are about to delete one track from the database, this procedure is irreversible but the song can always
+                be added again by rescanning its source.</p>
+            <p>Do you want to proceed?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:confirmedDelete('/admin/music/song/{0}/delete/')" class="btn danger">Yes</a>
+            <a href="javascript:$('#confirm-delete-modal').modal('hide')" class="btn secondary">No</a>
+        </div>
+    </div>
+    <!-- /modal -->
+{% endblock %}

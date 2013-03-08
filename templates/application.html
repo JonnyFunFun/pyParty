@@ -9,25 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="stilearning">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <!-- google font -->
-    <link href="http://fonts.googleapis.com/css?family=Aclonica:regular" rel="stylesheet" type="text/css" />
-
     <!-- styles -->
-    <link href="{{ STATIC_URL }}css/bootstrap{% if not TEMPLATE_DEBUG %}.min{% endif %}.css" rel="stylesheet" media="screen">
-    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/stilearn.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/stilearn-responsive.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/stilearn-helper.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/stilearn-icon.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/font-awesome.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/animate.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/uniform.default.css" rel="stylesheet">
-
-    <link href="{{ STATIC_URL }}css/select2.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/fullcalendar.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/bootstrap-wysihtml5.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/pyparty.css" rel="stylesheet"/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -119,8 +102,12 @@
 <!-- javascript
 ================================================== -->
 <script src="{{ STATIC_URL }}js/jquery{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
-<script src="{{ STATIC_URL }}js/jquery-ui.min.js"></script>
-<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+<script src="{{ STATIC_URL }}js/jquery-ui{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
+<script src="{{ STATIC_URL }}js/bootbox{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.percentageloader{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
+<script src="{{ STATIC_URL }}js/datatables/jquery.dataTables{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
+<script src="{{ STATIC_URL }}js/datatables/DT_bootstrap.js"></script>
 <script src="{{ STATIC_URL }}js/moment.js"></script>
 <script src="{{ STATIC_URL }}js/pyparty.js"></script>
 

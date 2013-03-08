@@ -1,14 +1,19 @@
 from django.db import models
+from django.db.models import Count
 from django.contrib.auth.models import User
 
 
 # Create your models here.
 class Request(models.Model):
-    requester = models.ForeignKey(User)
     song = models.ForeignKey('Music')
-    votes = models.IntegerField(default=1)
+    requester = models.ForeignKey(User)
     received_at = models.DateTimeField(auto_now_add=True)
     fulfilled = models.BooleanField(default=False)
+
+
+class RequestVote(models.Model):
+    requester = models.ForeignKey(User)
+    request = models.ForeignKey(Request)
 
 
 class MusicSource(models.Model):
@@ -25,7 +30,9 @@ class Music(models.Model):
 
     @staticmethod
     def next_song_and_request():
-        requests = Request.objects.filter(fulfilled=False).order_by('-votes', 'received_at',)
+        requests = Request.objects.filter(fulfilled=False)
+        requests = requests.annotate(vote_count=Count('requestvote'))
+        requests = requests.order_by('-vote_count', 'received_at',)
         if requests.count() != 0:
             return requests[0].song, requests[0]
         else:
@@ -39,14 +46,39 @@ class Music(models.Model):
         except Music.DoesNotExist:
             return None
 
-    def request(self, user):
+
+    @property
+    def associated_request(self):
         try:
-            # try an active request
-            request = Request.objects.get(fulfilled=False, song=self)
+            return Request.objects.get(fulfilled=False, song=self)
         except Request.DoesNotExist:
+            return None
+
+
+    def request(self, user):
+        # try an active request
+        if self.associated_request is None:
             # create a new one
             request = Request()
             request.requester = user
             request.song = self
-        request.votes += 1
-        request.save()
+            request.save()
+            vote = RequestVote()
+            vote.request = request
+            vote.requester = user
+            vote.save()
+        if self.associated_request.requester != user:
+            try:
+                RequestVote.objects.get(request=self.associated_request, requester=user)
+            except RequestVote.DoesNotExist:
+                # good to create it
+                vote = RequestVote()
+                vote.request = self.associated_request
+                vote.requester = user
+
+    @property
+    def vote_count(self):
+        request = self.associated_request
+        if request is None:
+            return 0
+        return request.requestvote_set.count()

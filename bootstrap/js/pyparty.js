@@ -137,9 +137,10 @@ function sendChatMessage(msg) {
             if (data.success == true) {
                 $('div#chat_message_box').append(data.child);
             } else {
-                //TODO: some message about a chat not being sent?
+                bootbox.alert("There was a problem sending your chat message:<br/><pre>{0}</pre>".f(data.error), "Problem Sending");
             }
-        }
+        },
+        error: ajaxError
     })
 }
 
@@ -162,6 +163,7 @@ function syncChatMessages() {
 }
 
 var ME;
+var editing = null;
 var musicSearchTimeout=null;
 var musicSearchRequest=null;
 
@@ -194,8 +196,95 @@ $(document).ready(function() {
                 clearTimeout(musicSearchTimeout);
             musicSearchTimeout = setTimeout(searchMusic, 500);
         }
-    })
+    });
+    /* "postlink"s */
+    $('a.confirm-delete').click(function(e) {
+        e.preventDefault();
+        $('#confirm-delete-modal').data('id',$(this).data('id')).modal('show', { backdrop: true });
+    });
+    /* datatables */
+    $('table.datatable').dataTable({fnPreDrawCallback: makeRowsEditable});
 });
+
+/* editable rows */
+function makeRowsEditable() {
+    $('tr.editrow').dblclick(function(e) {
+        if (editing) return;
+        e.preventDefault();
+        editing = $(this);
+        var id = $(this).data('id');
+        var editPath = $(this).parents('table').data('edit').f(id);
+        $(this).find('td[data-field]').each(function() {
+            $(this).data('val', $(this).html());
+            var input = $('<input type="text"></input>');
+            input.keydown(function(e) {
+                if (e.keyCode == 13 /* enter */) {
+                    e.preventDefault();
+                    /* SAVE! */
+                    var data = {};
+                    $(this).parents('tr.editrow:first').find('input').each(function() {
+                        data[$(this).attr('name')] = $(this).val();
+                    });
+                    $.ajax({
+                        type: 'POST',
+                        context: $(this).parents('tr.editrow:first')[0],
+                        url: editPath,
+                        data: data,
+                        contentType: 'application/json',
+                        success: function(data) {
+                            $(this).find('td[data-field]').each(function() {
+                                $(this).html(
+                                    (data.success) ? $(this).find('input:first').val() : $(this).data('val')
+                                );
+                                if (!data.success) {
+                                    bootbox.alert("There was a problem editing that item:<br/><pre>{0}</pre>".f(data.error), "Problem Editing");
+                                } else {
+                                    $(this).data('val', $(this).find('input:first').val());
+                                }
+                            });
+                        },
+                        error: ajaxError
+                    });
+                }
+            });
+            input.val($(this).data('val')).attr('name', $(this).data('field'));
+            $(this).html(input);
+        });
+    });
+}
+
+/* click-off unedit rows */
+$(document).click(function(e) {
+    if (editing == null) return;
+    if ((e.target == editing) || (editing.find(e.target).length != 0)) return;
+    e.stopPropagation();
+    editing.find('td[data-field]').each(function() {
+        $(this).html($(this).data('val'));
+    });
+    editing = null;
+});
+
+/* confirmation delete stuff */
+$('#confirm-delete-modal').modal('hide', { backdrop: true });
+function confirmedDelete(url) {
+    var id = $('#confirm-delete-modal').modal('hide').data('id');
+    $('a.confirm-delete[data-id='+id+']').parents('tr').css('background-color', '#f00');
+    $.ajax({
+        type: 'POST',
+        url: url.f(id),
+        data: {id: id},
+        contentType: 'application/json',
+        success: function(data) {
+            if (data.success) {
+                $('a.confirm-delete[data-id='+id+']').parents('tr').slideUp('normal', function() { $(this).remove(); });
+            } else {
+                $('a.confirm-delete[data-id='+id+']').parents('tr').css('background-color', '');
+                bootbox.alert("There was a problem deleting that item:<br/><pre>{0}</pre>".f(data.error), "Problem Deleting");
+            }
+        },
+        error: ajaxError
+    })
+}
 
 /* sync currently playing */
 function syncCurrentlyPlaying() {
@@ -204,10 +293,19 @@ function syncCurrentlyPlaying() {
         url: '/music/current/',
         contentType: 'application/json',
         success: function(data) {
-            console.log(data);
-            $('#music_currently_playing').html((data.artist != undefined) ? "<em>{0}</em> - {1}".f(data.artist, data.title) : "Nothing is currently playing");
+            var display = $('#music_currently_playing');
+            if (data.artist != undefined) {
+                if (data.requested_by != "Random Play") {
+                    display.html("<em>{0}</em> - {1} <small>Requested by <em>{2}</em></small>".f(data.artist, data.title, data.requested_by));
+                } else {
+                    display.html("<em>{0}</em> - {1}".f(data.artist, data.title));
+                }
+            } else {
+                display.html("Nothing is currently playing");
+            }
             setTimeout(syncCurrentlyPlaying, 15000);
-        }
+        },
+        error: function() {/* suppress */}
     });
 }
 
@@ -225,23 +323,43 @@ function searchMusic() {
             var results = $('div#music_search_results').html('').append('<ul></ul>');
             $.each(data, function(k,song) {
                 results.append($('<li></li>').html("<em>{0}</em> - {1}".f(song.artist, song.title)).attr('data-id',song.id).click(function() {
-                    requestMusic(song.id);
+                    sendRequest(song.id);
                     $(this).addClass('requested');
                 }));
             });
             musicSearchRequest = null;
-        }
+        },
+        error: ajaxError
     });
 }
 
 /* request music */
 function requestMusic(id) {
+    sendRequest(id, function(data) {
+        var song_row = $('tr[data-id="'+id+'"]');
+        var requests = song_row.find('td[data-field="requests"]');
+        requests.html((parseInt(requests.html()) + 1) | 1);
+        song_row.find('a.btn').removeClass('btn-success').addClass('btn-inverse').html('Requested!');
+    });
+}
+
+function sendRequest(song_id, callback) {
     $.ajax({
         type: 'POST',
-        data: {song:id},
+        data: {song:song_id},
         url: '/music/request/',
-        dataType: 'json'
+        dataType: 'json',
+        success: function(data) {
+            if (callback)
+                callback(data);
+        },
+        error: ajaxError
     });
+}
+
+/* ajax error feedback */
+function ajaxError(e, xhr, opt, err) {
+    bootbox.alert("There was an error communicating with the server:<br/><b>{0}</b><pre>{1}</pre><br/>Please refresh the page and try again.".f(e.error, err));
 }
 
 /* ajax csrf workaround */

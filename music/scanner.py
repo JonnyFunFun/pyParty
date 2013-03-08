@@ -3,6 +3,10 @@ from django.db import IntegrityError
 from os.path import join, splitext
 import id3reader
 import os
+import re
+
+
+MUSIC_MATCH_REGEX = re.compile("[/'\']?((?P<subfolder>[\w\d\s]+))?[/'\']?(?P<folder>[\w\d\s]+)[/'\'](?P<title>[\w\s\d]+)\.mp3$", re.IGNORECASE)
 
 
 def scan_media(source_id=None):
@@ -20,18 +24,11 @@ def scan_media(source_id=None):
 
     music_added = 0
 
-    if not source_id:
+    if not source_id or source_id is "all":
         sources = MusicSource.objects.all()
-        for source in sources:
-            yield "<div><em>Scanning <strong>%s</strong></em></div>" % source.path
-            for root, dirs, files in os.walk(source.path, topdown=False):
-                yield "<div>%s</div>" % root
-                yield " " * 1024  # encourage incremental rendering
-                for f in files:
-                    f = join(root, f)
-                    music_added += process_file(f, source.id) or 0
     else:
-        source = MusicSource.objects.get(id=source_id)
+        sources = [MusicSource.objects.get(id=source_id), ]
+    for source in sources:
         yield "<div><em>Scanning <strong>%s</strong></em></div>" % source.path
         for root, dirs, files in os.walk(source.path, topdown=False):
             yield "<div>%s</div>" % root
@@ -44,7 +41,10 @@ def scan_media(source_id=None):
                 <br/><br/>
                 <strong>Done!</strong><br/>
                 %s music files were added or updated!
-                <script type=\"text/javascript\">scrollBottom();</script>
+                <script type=\"text/javascript\">
+                    scrollBottom();
+                    document.getElementById('spinner').style.visibility = 'hidden';
+                </script>
             </body>
         </html>
     """ % music_added
@@ -84,12 +84,16 @@ def process_file(f, source_id):
             # new one
             m = Music()
         if title is not None and artist is not None:
-            m.album = album
+            m.album = album or "Unknown Album"
             m.artist = artist
             m.title = title
         else:
-            # determine it from the filename? TODO
-            return 0  #skip for now
+            info = MUSIC_MATCH_REGEX.search(f)
+            if info is None:
+                return 0
+            m.album = "Unknown Album"
+            m.artist = "%s - %s" % (info.groupdict()['folder'], info.groupdict()['subfolder'])
+            m.title = info.groupdict()['title']
         m.filename = f
         m.source_id = source_id
         try:

@@ -1,0 +1,36 @@
+{% extends 'application.html' %}
+{% load music_filters %}
+
+{% block content %}
+    <div class="span11">
+        <table id="music_table" class="table datatable table-bordered table-striped responsive">
+            <thead>
+            <tr>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>Title</th>
+                <th>Requests</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for music in music_set %}
+                <tr data-id="{{ music.id }}">
+                    <td data-field="artist">{{ music.artist }}</td>
+                    <td data-field="album">{{ music.album }}</td>
+                    <td data-field="title">{{ music.title }}</td>
+                    <td data-field="requests">{{ music.vote_count }}</td>
+                    <td class="center">
+                        {% if request.user|has_requested:music %}
+                            <a href="#" onclick="" class="btn btn-inverse">Requested!</a>
+                        {% else %}
+                            <a href="#" onclick="requestMusic({{ music.id }});" class="btn btn-success">Request</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

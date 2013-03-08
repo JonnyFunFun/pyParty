@@ -1,0 +1,206 @@
+/** imports **/
+@import 'bootstrap.css' screen;
+@import 'bootstrap-responsive.css';
+@import 'stilearn.css';
+@import 'stilearn-responsive.css';
+@import 'stilearn-helper.css';
+@import 'stilearn-icon.css';
+@import 'font-awesome.css';
+@import 'animate.css';
+@import 'DT_bootstrap.css';
+@import 'select2.css';
+@import 'jquery.percentageloader.css';
+
+/** web fonts **/
+@font-face {
+    font-family: 'Aclonica';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Aclonica'), local('Aclonica-Regular'), url('../font/Aclonica.woff') format('woff');
+}
+
+/** pyParty specific CSS */
+
+.jquery-checkbox       {display: inline; font-size: 20px; line-height: 20px; cursor: pointer; cursor: hand;}
+.jquery-checkbox .mark {display: inline;}
+
+.jquery-checkbox img {vertical-align: middle; width: 60px; height: 20px;}
+.jquery-checkbox img{background: transparent url(../img/checkbox.png) no-repeat;}
+
+.jquery-checkbox img{
+    background-position: 0px 0px;
+}
+.jquery-checkbox-hover img{
+    background-position: 0px -20px;
+}
+.jquery-checkbox-checked img{
+    background-position: 0px -40px;
+}
+.jquery-checkbox-checked .jquery-checkbox-hover img {
+    background-position: 0px -60px;
+}
+
+.jquery-checkbox-disabled img{
+    background-position: 0px -80px;
+}
+.jquery-checkbox-checked .jquery-checkbox-disabled img{
+    background-position: 0px -100px;
+}
+
+.ui-block-message {
+    background: transparent;
+    margin: 0 auto;
+    margin-top: -30px;
+    min-width: 45px;
+    position: relative;
+    text-align: center;
+    top: 50%;
+    z-index: 1001;
+}
+
+.ui-gif-loading {
+    background: url("../img/ajax-loader.gif") no-repeat scroll center center;
+    height: 42px;
+    margin: 0 auto;
+    width: 42px;
+}
+
+.ui-text-loading {
+    color: #008299;
+    font-weight: 700;
+}
+
+.ui-overlay {
+    background: #fff url(../img/diagonal-white.png) 50% 50% repeat;
+    opacity: .90;
+    filter:Alpha(Opacity=90);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    margin-top: 12px;
+    margin-left: 7%;
+    font-size: 10px;
+}
+
+div.content-header h2 small {
+    padding-left: 12px;
+}
+
+blockquote.profile-quote {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    width: 500px;
+    margin: 0.25em 0 1em 2em;
+    padding: 0.25em 40px;
+    line-height: 1.45;
+    position: relative;
+    color: #383838;
+    border-left: none;
+}
+
+blockquote.profile-quote:before {
+    display: block;
+    content: "\201C";
+    font-size: 80px;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    color: #7a7a7a;
+}
+
+blockquote.profile-quote cite {
+    color: #999999;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+blockquote.profile-quote cite:before {
+    content: "\2014 \2009";
+}
+
+.music-sidebar {
+    width: 400px;
+}
+
+.music-sidebar input#music_search_input {
+    margin: auto;
+    width: 95%;
+}
+
+.music-sidebar div#music_search_results {
+    font-size: 12px;
+}
+
+div#music_search_results li {
+    border-radius: 2px;
+    cursor: pointer; cursor: hand;
+}
+
+div#music_search_results li.requested {
+    font-weight: bold;
+}
+
+div#music_search_results li:hover {
+    background-color: #d4d4d4;
+}
+
+/** 'keep' positioning elements **/
+div.keep-topleft, div.keep-topright {
+    position: absolute;
+    margin: 2px;
+    z-index: 99999;
+    top: 0;
+}
+div.keep-topleft { left: 0; }
+div.keep-topright { right:  0; }
+
+div.keep-bottomleft, div.keep-bottomright {
+    position: absolute;
+    margin: 2px;
+    z-index: 99999;
+    bottom: 0;
+}
+div.keep-bottomleft { left: 0; }
+div.keep-bottomright { right: 0; }
+
+
+/** loading animations **/
+span.loading div.circle {
+    background-color: rgba(0,0,0,0);
+    border:5px solid rgba(0,183,229,0.9);
+    opacity:.9;
+    border-right:5px solid rgba(0,0,0,0);
+    border-left:5px solid rgba(0,0,0,0);
+    border-radius:50px;
+    box-shadow: 0 0 35px #2187e7;
+    width:50px;
+    height:50px;
+    margin:0 auto;
+    -moz-animation:spinPulse 1s infinite ease-in-out;
+    -webkit-animation:spinPulse 1s infinite linear;
+}
+span.loading div.circle-inner {
+    background-color: rgba(0,0,0,0);
+    border:5px solid rgba(0,183,229,0.9);
+    opacity:.9;
+    border-left:5px solid rgba(0,0,0,0);
+    border-right:5px solid rgba(0,0,0,0);
+    border-radius:50px;
+    box-shadow: 0 0 15px #2187e7;
+    width:30px;
+    height:30px;
+    margin:0 auto;
+    position:relative;
+    top:-50px;
+    -moz-animation:spinoffPulse 1s infinite linear;
+    -webkit-animation:spinoffPulse 1s infinite linear;
+}

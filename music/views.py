@@ -4,11 +4,12 @@ from django.contrib.messages import warning
 from django.utils import simplejson
 from django.db.models import Q
 from shoutcast import ShoutCastStream
-from global_decorators import render_to
+from global_decorators import render_to, require_section_enabled
 from models import Music
 
 
 @condition(etag_func=None)
+@require_section_enabled('music')
 def stream(request):
     if Music.currently_playing() is not None:
         warning(request, "Only one Shoutcast stream may be active at any time")
@@ -18,6 +19,7 @@ def stream(request):
 
 
 @render_to('music_list.html')
+@require_section_enabled('music')
 def index(request):
     music_set = Music.objects.all()
     icon = "music"
@@ -26,6 +28,7 @@ def index(request):
 
 
 @require_POST
+@require_section_enabled('music')
 def search(request):
     search_string = request.POST.get('s','')
     results = Music.objects.filter(
@@ -37,6 +40,7 @@ def search(request):
 
 
 @require_POST
+@require_section_enabled('music')
 def request_song(request):
     try:
         song = Music.objects.get(id=request.POST.get('song'))
@@ -46,6 +50,7 @@ def request_song(request):
         return HttpResponse('{"success": false}', mimetype='application/json')
 
 
+@require_section_enabled('music')
 def current(request):
     playing = Music.currently_playing()
     data = {}

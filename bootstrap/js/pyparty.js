@@ -204,6 +204,28 @@ $(document).ready(function() {
     });
     /* datatables */
     $('table.datatable').dataTable({fnPreDrawCallback: makeRowsEditable});
+    /* remote status icons */
+    $('i.remote-status').each(function() {
+        $.ajax({
+           url: $(this).data('url'),
+           type: 'POST' ,
+           context: $(this)[0],
+           dataType: 'json',
+           success: function(data) {
+               console.log(data);
+               $(this).removeClass('remote-status');
+               if (data.success == true) {
+                   if (data.status == true) {
+                       $(this).addClass('green icofont-ok-sign');
+                   } else {
+                       $(this).addClass('red icofont-exclamation-sign');
+                   }
+               } else {
+                   $(this).addClass('yellow icofont-question-sign');
+               }
+           }
+        });
+    });
 });
 
 /* editable rows */

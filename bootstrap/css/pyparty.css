@@ -10,6 +10,7 @@
 @import 'DT_bootstrap.css';
 @import 'select2.css';
 @import 'jquery.percentageloader.css';
+@import 'toastr.css';
 
 /** web fonts **/
 @font-face {
@@ -203,4 +204,23 @@ span.loading div.circle-inner {
     top:-50px;
     -moz-animation:spinoffPulse 1s infinite linear;
     -webkit-animation:spinoffPulse 1s infinite linear;
+}
+
+i.remote-status {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url(../img/loader_16.gif) center top no-repeat;
+}
+
+i.green {
+    color: green;
+}
+
+i.red {
+    color: red;
+}
+
+i.yellow {
+    color: yellow;
 }

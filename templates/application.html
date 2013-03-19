@@ -67,9 +67,6 @@
 
 <!-- content-body -->
 <div class="content-body">
-    <!-- messages --->
-        {% include 'widgets/alert_messages.html' %}
-    <!-- /messages --->
 
     <!-- shortcut group -->
     <div class="shortcut-group">
@@ -107,9 +104,16 @@
 <script src="{{ STATIC_URL }}js/bootbox{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/jquery.percentageloader{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/datatables/jquery.dataTables{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
+<script src="{{ STATIC_URL }}js/toastr{% if not TEMPLATE_DEBUG %}.min{% endif %}.js"></script>
 <script src="{{ STATIC_URL }}js/datatables/DT_bootstrap.js"></script>
 <script src="{{ STATIC_URL }}js/moment.js"></script>
 <script src="{{ STATIC_URL }}js/pyparty.js"></script>
+<!-- messages --->
+{% if request.user.is_admin %}
+    <script src="{{ STATIC_URL }}js/admin_notices.js"></script>
+{% endif %}
+{% include 'widgets/alert_messages.html' %}
+<!-- /messages --->
 
 <!-- section footer -->
 <footer>

@@ -1836,7 +1836,6 @@ ul.b-btn-group li{
     border-radius:50%;
     display:inline;
     margin:20px;
-    margin-right: 60px;
     float:left;
     position:relative;
     -webkit-box-shadow:0px 0px 5px 0px rgba(238, 238, 238, 0.5) inset, 0px -1px 5px 4px rgba(221, 221, 221, 0.2) inset, 0px 0px 0px 7px #fafafa,  0px 0px 1px 8px rgba(204, 204, 204, 0.4), 0px 0px 0px 9px #dfdfdf;

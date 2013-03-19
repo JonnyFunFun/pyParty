@@ -1,8 +1,9 @@
 {% if messages %}
-    {% for message in messages %}
-        <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">
-            <button class="close" data-dismiss="alert">&times;</button>
-            {{ message|safe }}
-        </div>
-    {% endfor %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+        {% for message in messages %}
+            toastr.{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}('{{ message }}');
+        {% endfor %}
+        });
+    </script>
 {% endif %}

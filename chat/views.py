@@ -25,4 +25,4 @@ def post(request):
     new_msg.message = message
     new_msg.user = request.user
     new_msg.save()
-    return HttpResponse(json.dumps({'success': True, 'child': new_msg.chatbox_element}))
+    return HttpResponse(json.dumps({'success': True, 'child': new_msg.chatbox_element}), content_type='application/json')

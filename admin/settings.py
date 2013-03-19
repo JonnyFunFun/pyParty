@@ -1,5 +1,6 @@
 from models import Setting, PYPARTY_SETTINGS
 
+
 def get_setting(name):
     try:
         setting = Setting.objects.get(name=name)
@@ -10,6 +11,7 @@ def get_setting(name):
         setting.value = PYPARTY_SETTINGS[name]
         setting.save()
     return setting.value
+
 
 def save_setting(name, value):
     try:

@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.contrib.messages import error
 
+
 def admin_only(function):
     def wrap(request, *args, **kwargs):
 

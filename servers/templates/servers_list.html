@@ -1,0 +1,23 @@
+{% extends 'application.html' %}
+
+{% block content %}
+    <div class="span11">
+{% for server in server_set %}
+        <div class="span4  well well-small">
+            <h4>{{ server.name }}</h4>
+            <div class="server-info" data-id="{{ server.id }}">
+                Loading...
+            </div>
+            <br/>
+            <small>
+                Operated by <a href="{{ server.operator.url }}"><em>{{ server.operator.username }}</em></a>
+            </small>
+        </div>
+    {% if forloop.counter|divisibleby:3  %}
+    </div>
+    <div class="span11">
+    {% endif %}
+{% endfor %}
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

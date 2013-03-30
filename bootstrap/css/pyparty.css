@@ -206,7 +206,7 @@ span.loading div.circle-inner {
     -webkit-animation:spinoffPulse 1s infinite linear;
 }
 
-i.remote-status {
+i.loading-spinner, i.remote-status {
     width: 16px;
     height: 16px;
     display: inline-block;
@@ -222,5 +222,5 @@ i.red {
 }
 
 i.yellow {
-    color: yellow;
+    color: #D8D800;
 }

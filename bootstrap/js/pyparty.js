@@ -246,7 +246,23 @@ $(document).ready(function() {
             }
         })
     });
+    /* toastr notices */
+    get_notices();
 });
+
+function get_notices() {
+    $.ajax({
+        url: '/notices/',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(data) {
+            $.each(data, function(idx, notice) {
+                toastr.warning(notice);
+            });
+        }
+    });
+    setTimeout(get_notices, 900000); // 15 minutes
+}
 
 /* editable rows */
 function makeRowsEditable() {

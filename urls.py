@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'noms/', include('noms.urls')),
     url(r'servers/', include('servers.urls')),
     url(r'tournaments/', include('tourneys.urls')),
+    url(r'notices/?', 'notices.get_notices'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     url(r'^favicon.ico$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT, 'path': 'favicon.ico'}),
     # always do this, even in production

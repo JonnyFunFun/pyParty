@@ -40,15 +40,3 @@ def save_settings(request):
             save_setting(key, request.POST.get(key,'0'))
         messages.success(request, "Your settings were saved successfully!")
     return HttpResponseRedirect('/admin/')
-
-
-@admin_only
-def notices(request):
-    notices = []
-    # Check for servers requiring mod approval
-    servers_unapproved = Server.objects.filter(mod_approved=False)
-    if servers_unapproved.count() is not 0:
-        notices.append("%d servers require admin approval." % servers_unapproved.count())
-    if get_setting('enable_music') == '1' and Music.currently_playing() is None:
-        notices.append("No music is currently playing!")
-    return HttpResponse(json.dumps(notices), content_type='application/json')

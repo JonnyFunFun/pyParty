@@ -31,11 +31,13 @@ class Server(models.Model):
             except:
                 return None
         elif self.server_type is 'MINE':
+            # query minecraft
             try:
                 q = MinecraftQuery(self.address, self.port or 25565)
                 return q.get_rules()
             except:
                 return None
+        # default stuff
         return None
 
     @property

@@ -226,7 +226,43 @@ $(document).ready(function() {
            }
         });
     });
+    /* server info boxes */
+    $('div.server-info').each(function() {
+        $.ajax({
+            url: '/servers/info/'+$(this).data('id'),
+            type: 'GET',
+            context: $(this)[0],
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                if (data.success == true) {
+                    if (data.alive == false) {
+                        $(this).parents('div.well').find('h4').append('&nbsp;&nbsp;<i class="yellow icofont-question-sign"></i>');
+                    }
+                    $(this).html(data.info);
+                } else {
+                    $(this).html('<div class="alert alert-error">There was a problem retreiving server info.</div>');
+                }
+            }
+        })
+    });
+    /* toastr notices */
+    get_notices();
 });
+
+function get_notices() {
+    $.ajax({
+        url: '/notices/',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(data) {
+            $.each(data, function(idx, notice) {
+                toastr.warning(notice);
+            });
+        }
+    });
+    setTimeout(get_notices, 900000); // 15 minutes
+}
 
 /* editable rows */
 function makeRowsEditable() {

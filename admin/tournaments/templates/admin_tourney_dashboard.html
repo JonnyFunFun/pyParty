@@ -1,0 +1,70 @@
+{% extends "application.html" %}
+
+{% block shortcut-group %}
+    <ul class="a-btn-group">
+        <li>
+            <a href="/admin/users/" class="a-btn grd-white" rel="tooltip" title="account administration">
+                <span></span>
+                <span><i class="icofont-user color-silver-dark"></i></span>
+                <span class="color-silver-dark"><i class="icofont-user color-teal"></i></span>
+                <div class="badge badge-success">{{ user_count }}</div> <!--don't use span here!-->
+            </a>
+        </li>
+        <li>
+            <a href="/admin/music/" class="a-btn grd-white" rel="tooltip" title="music administration">
+                <span></span>
+                <span><i class="icofont-music color-silver-dark"></i></span>
+                <span class="color-silver-dark"><i class="icofont-music color-teal"></i></span>
+                {% if music_request_count != 0 %}
+                    <div class="badge badge-info">{{ music_request_count }}</div>
+                {% endif %}
+            </a>
+        </li>
+        <li>
+            <a href="/admin/servers/" class="a-btn grd-white" rel="tooltip" title="server management">
+                <span></span>
+                <span><i class="icofont-hdd color-silver-dark"></i></span>
+                <span class="color-silver-dark"><i class="icofont-hdd color-teal"></i></span>
+                {% if server_approval_count != 0 %}
+                    <div class="badge badge-important">{{ server_approval_count }}</div> <!--don't use span here!-->
+                {% endif %}
+            </a>
+        </li>
+        <li>
+            <a href="/admin/tournaments/" class="a-btn grd-white" rel="tooltip" title="tournament administration">
+                <span></span>
+                <span><i class="icofont-trophy color-silver-dark"></i></span>
+                <span class="color-silver-dark"><i class="icofont-trophy color-teal"></i></span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/noms/" class="a-btn grd-white" rel="tooltip" title="nom-nom-noms settings">
+                <span></span>
+                <span><i class="icofont-glass color-silver-dark"></i></span>
+                <span class="color-silver-dark"><i class="icofont-glass color-teal"></i></span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/benchmarks/" class="a-btn grd-white" rel="tooltip" title="benchmarks administration">
+                <span></span>
+                <span><i class="icofont-bar-chart color-silver-dark"></i></span>
+                <span class="color-silver-dark"><i class="icofont-bar-chart color-teal"></i></span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/gallery/" class="a-btn grd-white" rel="tooltip" title="gallery administration">
+                <span></span>
+                <span><i class="icofont-picture color-silver-dark"></i></span>
+                <span class="color-silver-dark"><i class="icofont-picture color-teal"></i></span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/settings/" class="a-btn grd-white" rel="tooltip" title="system settings">
+                <span></span>
+                <span><i class="icofont-cogs color-silver-dark"></i></span>
+                <span class="color-silver-dark"><i class="icofont-cogs color-teal"></i></span>
+            </a>
+        </li>
+        <li class="clearfix"></li>
+    </ul>
+{% endblock %}

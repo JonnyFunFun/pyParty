@@ -108,10 +108,6 @@
 <script src="{{ STATIC_URL }}js/datatables/DT_bootstrap.js"></script>
 <script src="{{ STATIC_URL }}js/moment.js"></script>
 <script src="{{ STATIC_URL }}js/pyparty.js"></script>
-<!-- messages --->
-{% if request.user.is_admin %}
-    <script src="{{ STATIC_URL }}js/admin_notices.js"></script>
-{% endif %}
 {% include 'widgets/alert_messages.html' %}
 <!-- /messages --->
 

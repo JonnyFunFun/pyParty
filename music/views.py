@@ -1,7 +1,7 @@
 from django.views.decorators.http import condition, require_POST
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.messages import warning
-from django.utils import simplejson
+from django.utils import simplejson as json
 from django.db.models import Q
 from shoutcast import ShoutCastStream
 from global_decorators import render_to, require_section_enabled
@@ -35,8 +35,8 @@ def search(request):
         Q(artist__contains=search_string) |
         Q(title__contains=search_string)
     ).values('id','artist','title')
-    data = simplejson.dumps(list(results))
-    return HttpResponse(data, mimetype='application/json')
+    data = json.dumps(list(results))
+    return HttpResponse(data, content_type='application/json')
 
 
 @require_POST
@@ -45,9 +45,9 @@ def request_song(request):
     try:
         song = Music.objects.get(id=request.POST.get('song'))
         song.request(request.user)
-        return HttpResponse('{"success": true}', mimetype='application/json')
+        return HttpResponse('{"success": true}', content_type='application/json')
     except Music.DoesNotExist:
-        return HttpResponse('{"success": false}', mimetype='application/json')
+        return HttpResponse('{"success": false}', content_type='application/json')
 
 
 @require_section_enabled('music')
@@ -62,4 +62,4 @@ def current(request):
         else:
             data['requested_by'] = "Random Play"
 
-    return HttpResponse(simplejson.dumps(data), mimetype='application/json')
+    return HttpResponse(json.dumps(data), content_type='application/json')

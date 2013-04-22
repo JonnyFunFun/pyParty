@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from servers.query.source import SourceQuery
 from servers.query.minecraft import MinecraftQuery
-from socket import AF_INET, SOCK_STREAM, socket
+from socket import AF_INET, SOCK_STREAM, SOCK_DGRAM, socket
 
 
 SERVER_TYPES = (
@@ -23,14 +23,15 @@ class Server(models.Model):
     mod_approved = models.BooleanField(default=False, verbose_name="Approval Status")
 
     def info(self):
-        if self.server_type is 'HLDS':
+        if self.server_type == 'HLDS':
             # query HLDS server
             try:
                 q = SourceQuery(self.address, self.port or 27015)
                 return q.getInfo()
             except:
+                raise
                 return None
-        elif self.server_type is 'MINE':
+        elif self.server_type == 'MINE':
             # query minecraft
             try:
                 q = MinecraftQuery(self.address, self.port or 25565)
@@ -42,4 +43,4 @@ class Server(models.Model):
 
     @property
     def host_alive(self):
-        return socket(AF_INET, SOCK_STREAM).connect_ex((self.address, self.port)) == 0
+        return (socket(AF_INET, SOCK_STREAM).connect_ex((self.address, self.port)) == 0) or (socket(AF_INET, SOCK_DGRAM).connect_ex((self.address, self.port)) == 0)

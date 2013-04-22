@@ -2,7 +2,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
         {% for message in messages %}
-            toastr.{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}('{{ message }}');
+            toastr.{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}("{{ message|safe }}");
         {% endfor %}
         });
     </script>

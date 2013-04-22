@@ -6,6 +6,7 @@ from django.contrib import messages
 from admin.settings import get_setting
 import random, string
 
+
 class PyPartyAccountAndAuthenticationMiddleware(object):
 
     def process_request(self, request):
@@ -21,7 +22,7 @@ class PyPartyAccountAndAuthenticationMiddleware(object):
             auth.login(request, up.user)
         except UserProfile.DoesNotExist:
             # if we're the first user, we're always an admin
-            first_admin = User.objects.count() is 0
+            first_admin = (User.objects.count() == 0)
             # add a new user
             random_password = ''.join(random.choice(string.ascii_lowercase + string.digits) for x in range(12))
             username = request.META['REMOTE_HOST'] or 'User-'+''.join(random.choice(string.ascii_lowercase + string.digits) for x in range(6))
@@ -30,7 +31,8 @@ class PyPartyAccountAndAuthenticationMiddleware(object):
             profile = UserProfile()
             profile.user = user
             profile.hostname = hostname
-            profile.set_flag(FLAG_ADMIN)
+            if first_admin:
+                profile.set_flag(FLAG_ADMIN)
             profile.save()
             request.user = user
             user = auth.authenticate(username=username, password=random_password)

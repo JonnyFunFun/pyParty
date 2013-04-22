@@ -43,8 +43,9 @@ class SourceQuery(object):
         self.sock.send(A2S_INFO)
         before = time.time()
         try:
-            data =  self.sock.recv(4096)
+            data = self.sock.recv(4096)
         except:
+            raise
             return False
 
         after = time.time()

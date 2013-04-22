@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from math import ceil, log
+from django.db.models import Q
 
 
 class Tournament(models.Model):
@@ -79,10 +80,14 @@ class Team(models.Model):
     seed = models.IntegerField(null=True)
     bracket_side = models.CharField(choices=BRACKET_SIDES, default='N', max_length=1)
 
+    @property
+    def matches(self):
+        return Match.objects.filter(Q(top_team=self) | Q(bot_team=self))
+
 
 RESULTS = (
     ('UP', 'Unplayed'),
-    ('IP, ''In Progress'),
+    ('IP', 'In Progress'),
     ('BW', 'Bottom Win'),
     ('TW', 'Top Win'),
     ('BF', 'Bottom Forfeit'),
@@ -92,8 +97,8 @@ RESULTS = (
 
 class Match(models.Model):
     tournament = models.ForeignKey(Tournament, related_name='matches')
-    top_team = models.ForeignKey(Team)
-    bot_team = models.ForeignKey(Team)
+    top_team = models.ForeignKey(Team, related_name='+')
+    bot_team = models.ForeignKey(Team, related_name='+')
     result = models.CharField(max_length=2, choices=RESULTS, default='UP')
     seed_depth = models.IntegerField()
     bracket_side = models.CharField(choices=BRACKET_SIDES, default='N', max_length=1)

@@ -1,7 +1,9 @@
 from global_decorators import render_to
 from models import Server
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 from django.utils import simplejson as json
+from forms import GameServerRegistrationForm
 
 
 @render_to('servers_list.html')
@@ -20,3 +22,22 @@ def info(request, server_id):
     info = server.info()
     return HttpResponse(json.dumps({'success': True, 'info': info, 'alive': server.host_alive}),
                         content_type='application/json')
+
+
+@render_to('simple_layouts/form_for_content.html')
+def register(request):
+    icon = "hdd"
+    title = "Register a new Server"
+    if request.method == "POST":
+        server_data = request.POST.copy()
+        server_data['operator'] = request.user.id
+        form = GameServerRegistrationForm(data=server_data)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your server has been registered and is awaiting administrative approval.")
+            return HttpResponseRedirect('/servers/')
+        else:
+            messages.error(request, "Please correct errors in your submission.")
+    else:
+        form = GameServerRegistrationForm(initial={'address': request.META['REMOTE_ADDR']})
+    return locals()

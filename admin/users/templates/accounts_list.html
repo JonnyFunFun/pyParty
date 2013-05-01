@@ -23,7 +23,11 @@
                         {% else %}
                             <i class="icofont-user color-{{ account.chat_color }}"></i>
                         {% endif %}
-                        {{ account.username }}</td>
+                        {{ account.username }}
+                        {% if account.departed %}
+                            &nbsp;<span class="badge badge-inverse">Departed</span>
+                        {% endif %}
+                    </td>
                     <td>{{ account.hostname }}</td>
                     <td class="center">
                         <div class="btn-group">

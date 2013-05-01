@@ -138,7 +138,8 @@ THUMBNAIL_SIZE = (120, 120)
 
 # A few platforms we don't resize thumbnails on - PIL just doesn't work or doesn't work
 # well.  In this case, we'll let the browser resize them
-DISABLE_THUMBNAILS = os.name in ('nt', 'os2', 'ce', 'riscos', )
+#DISABLE_THUMBNAILS = os.name in ('nt', 'os2', 'ce', 'riscos', )
+DISABLE_THUMBNAILS = True  #todo - have to get this working again
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
@@ -168,6 +169,8 @@ INSTALLED_APPS = (
     'chat',
     'gallery',
     'admin.gallery',
+    'announcements',
+    'admin.news'
 )
 
 # A sample logging configuration. The only tangible logging

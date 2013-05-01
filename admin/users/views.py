@@ -12,7 +12,7 @@ from django.views.decorators.http import require_POST
 @render_to('accounts_list.html')
 def index(request):
     title = "Accounts"
-    icon = "users"
+    icon = "user"
     accounts = UserProfile.objects.all()
     return locals()
 

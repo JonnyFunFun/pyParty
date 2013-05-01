@@ -23,6 +23,9 @@
                     <td>{{ server.operator.username }}</td>
                     <td><i class="remote-status" data-url="/admin/servers/{{ server.id }}/alive/"></i></td>
                     <td class="center">
+                    {% if not server.mod_approved %}
+                        <a href="/admin/servers/{{ server.id }}/approve/" class="btn btn-success">Approve</a>
+                    {% endif %}
                         <a href="/admin/servers/{{ server.id }}/edit/" class="btn">Edit</a>
                         <a data-id="{{ server.id }}" href="#" class="confirm-delete btn btn-danger">Delete</a>
                     </td>

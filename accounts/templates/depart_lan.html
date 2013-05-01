@@ -1,0 +1,58 @@
+{% extends 'application.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if do_survey %}
+        <!-- survey'd departure -->
+        <div class="span6">
+            <div class="center">
+                <h1>Thanks for coming!</h1>
+                <img src="{{ STATIC_URL }}img/rdj_thanks.gif" alt="Thank you!"/>
+            </div><br/>
+            <p>
+                We'd like to take the opportunity to thank you for coming to our LAN!  In order to help us know what we
+                did right (and what we did wrong), please take a moment to submit the survey to the right.  If you'd
+                rather not fill out the survey, simply just click the button below and you will be marked as departed
+                from the LAN.
+            </p>
+            <h4>Might come back later?</h4>
+            <p>
+                No worries!  Just hook your computer back up and browse to the site - you'll automatically be marked as
+                no longer departed from the LAN.
+            </p>
+            <br/>
+            <div class="center">
+                <button class="btn-large btn btn-warning">
+                    <a href="/accounts/goodbye/finish/">No survey, just GTFO this place.</a>
+                </button>
+            </div>
+        </div>
+        <div class="span5 well">
+            <h3>Penny for your thoughts?</h3>
+            {% crispy survey %}
+        </div>
+        <div class="clearfix"></div>
+    {% else %}
+        <!-- non-survey departure -->
+        <div class="offset2 span6 align-center">
+            <div class="center">
+                <h1>Thanks for coming!</h1>
+                <img src="{{ STATIC_URL }}img/rdj_thanks.gif" alt="Thank you!"/>
+            </div><br/>
+            <p>
+                We'd like to take the opportunity to thank you for coming to our LAN!  We had fun having you!
+            </p>
+            <h4>Might come back later?</h4>
+            <p>
+                No worries!  Just hook your computer back up and browse to the site - you'll automatically be marked as
+                no longer departed from the LAN.
+            </p>
+            <br/>
+            <div class="center">
+                <button class="btn-large btn btn-warning">
+                    <a href="/accounts/goodbye/finish/">GTFO this place.</a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -11,7 +11,8 @@ PYPARTY_SETTINGS = {
     'enable_gallery': '1',
     'enable_tournaments': '1',
     'enable_servers': '1',
-    'enable_noms': '1'
+    'enable_noms': '1',
+    'goodbye_survey': '1'
 }
 
 

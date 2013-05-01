@@ -1,0 +1,29 @@
+{% extends 'application.html' %}
+
+{% block content %}
+    <div class="span11">
+    {% for user in users %}
+        <div class="span3 well well-small center">
+            <a href="/accounts/user/{{ user.username }}/"><h4>{{ user.username }}<small><br/>{{ user.first_name }} {{ user.last_name }}</small></h4>
+            <img src="{{ user.profile.avatar_thumb }}" alt="" class="align-center"/></a><br/>
+            {% if user.departed %}
+                <span class="badge badge-inverse"><i class="icofont-signout"></i> Departed the LAN</span><br/>
+            {% endif %}
+            {% if user.is_admin %}
+                <span class="badge badge-warning"><i class="icofont-bolt"></i> Admin</span>
+            {% endif %}
+            {% if user.is_operator %}
+                <span class="badge badge-info"><i class="icofont-wrench"></i> Server Op</span>
+            {% endif %}
+            {% if user.is_vip %}
+                <span class="badge badge-danger"><i class="icofont-star"></i> VIP</span>
+            {% endif %}
+        </div>
+    {% if forloop.counter|divisibleby:4  %}
+    </div>
+    <div class="span11">
+    {% endif %}
+{% endfor %}
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

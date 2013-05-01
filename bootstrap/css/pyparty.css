@@ -224,3 +224,12 @@ i.red {
 i.yellow {
     color: #D8D800;
 }
+
+div.btn-group.full-width, div.btn-group.full-width button {
+    width: 100%;
+}
+
+div.center {
+    margin: auto;
+    text-align: center;
+}

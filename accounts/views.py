@@ -1,8 +1,11 @@
 from global_decorators import render_to
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from admin.settings import get_setting
+from survey.forms import DepartingSurvey
 from forms import ProfileForm
 
 
@@ -59,4 +62,36 @@ def user(request, username):
     title = user.username
     message = user.get_full_name()
     icon = "user"
+    return locals()
+
+
+@render_to('list_users.html')
+def list_users(request):
+    title = "The Attendees"
+    icon = "user"
+    users = User.objects.all().order_by("id")
+    return locals()
+
+
+@render_to('depart_lan.html')
+def departing(request):
+    title = "Leaving the LAN?"
+    icon = "signout"
+    do_survey = get_setting('goodbye_survey') == '1'
+    survey = DepartingSurvey()
+    return locals()
+
+
+@render_to('thanks_for_coming.html')
+def do_departure(request):
+    if request.method == 'POST' and get_setting('goodbye_survey') == '1':
+        survey = DepartingSurvey(data=request.POST)
+        try:
+            survey.save()
+        except:
+            pass  # don't fail here
+    profile = request.user.profile
+    profile.departed = True
+    profile.save(force_update=True)
+    logout(request)
     return locals()

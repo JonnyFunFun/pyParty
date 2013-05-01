@@ -88,3 +88,15 @@ def alive(request, server_id):
         return HttpResponse(json.dumps({"success": True, "status": server.host_alive}), content_type='application/json')
     except:
         return HttpResponse(json.dumps({"success": False, "error": "Unknown"}), content_type='application/json')
+
+
+@admin_only
+def approve(request, server_id):
+    try:
+        server = Server.objects.get(id=server_id)
+        server.mod_approved = True
+        server.save()
+        messages.success(request, "Server %s approved." % server_id)
+    except Server.DoesNotExist:
+        messages.error(request, "Unable to find the server with id %s" % server_id)
+    return HttpResponseRedirect('/admin/servers/')

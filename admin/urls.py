@@ -6,5 +6,6 @@ urlpatterns = patterns('',
     url(r'users/', include('admin.users.urls')),
     url(r'music/', include('admin.jukebox.urls')),
     url(r'servers/', include('admin.gameservers.urls')),
+    url(r'news/', include('admin.news.urls')),
     url(r'^/?$', 'admin.views.index'),
 )

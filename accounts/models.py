@@ -46,6 +46,8 @@ class UserProfile(models.Model):
 
     comments = models.TextField(blank=True)
 
+    departed = models.BooleanField(default=False)
+
     @property
     def username(self):
         return self.user.username
@@ -102,14 +104,15 @@ class UserProfile(models.Model):
             return self.avatar.url
         else:
             path, ext = os.path.splitext(self.avatar.path)
-            thumbnail = '%s.thumb.jpg' % path
-            if not os.path.exists(thumbnail):
+            thumbnail_file = '%s.thumb.jpg' % path
+            thumbnail = '%s.thumb.jpg' % os.path.basename(path)
+            if not os.path.exists(thumbnail_file):
                 # generate a thumb
                 image = Image.open(self.avatar.path)
                 if image.mode not in ('L', 'RGB'):
                     image = image.convert('RGB')
                 image = image.resize(settings.THUMBNAIL_SIZE, Image.ANTIALIAS)
-                image.save(os.path.join(settings.MEDIA_ROOT, thumbnail), 'JPG')
+                image.save(os.path.join(settings.MEDIA_ROOT, thumbnail), 'JPEG')
         return "%s%s" % (settings.MEDIA_URL, thumbnail)
 
 

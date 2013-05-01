@@ -1,4 +1,5 @@
 {% extends "application.html" %}
+{% load crispy_forms_tags %}
 
 {% block shortcut-group %}
     <ul class="a-btn-group">
@@ -67,4 +68,57 @@
         </li>
         <li class="clearfix"></li>
     </ul>
+{% endblock %}
+
+
+{% block content %}
+    {{ block.super }}
+
+    <div class="span7">
+        <table id="music_table" class="table datatable table-bordered table-striped responsive">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Posted</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for announcement in announcements %}
+                <tr>
+                    <td>{{ announcement.title }}</td>
+                    <td>{{ announcement.author.username }}</td>
+                    <td>{{ announcement.posted_on }}</td>
+                    <td class="center">
+                        <a data-id="{{ server.id }}" href="#" class="confirm-delete btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="span4 well">
+        <h4>Make an announcement</h4>
+        {% crispy announcement_form %}
+    </div>
+
+    <div class="clearfix"></div>
+    <!-- modal -->
+    <div id="confirm-delete-modal" class="modal hide fade">
+        <div class="modal-header">
+            <a href="#" class="close">&times;</a>
+            <h3>Delete this announcement?</h3>
+        </div>
+        <div class="modal-body">
+            <p>You are about to delete one announcement from the database, this procedure is irreversible.</p>
+            <p>Do you want to proceed?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:confirmedDelete('/admin/news/{0}/delete/')" class="btn danger">Yes</a>
+            <a href="javascript:$('#confirm-delete-modal').modal('hide')" class="btn secondary">No</a>
+        </div>
+    </div>
+    <!-- /modal -->
 {% endblock %}

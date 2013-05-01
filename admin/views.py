@@ -1,3 +1,4 @@
+from admin.news.forms import AnnouncementForm
 from decorators import admin_only
 from global_decorators import render_to
 from django.contrib.auth.models import User
@@ -9,6 +10,7 @@ from models import PYPARTY_SETTINGS
 from forms import SettingsForm
 from servers.models import Server
 from music.models import Music, Request
+from announcements.models import Announcement
 import simplejson as json
 
 
@@ -20,6 +22,8 @@ def index(request):
     user_count = User.objects.count()
     server_approval_count = Server.objects.filter(mod_approved=False).count()
     music_request_count = Request.objects.filter(fulfilled=False).count()
+    announcements = Announcement.objects.all()
+    announcement_form = AnnouncementForm()
     return locals()
 
 

@@ -15,7 +15,7 @@ SERVER_TYPES = (
 class Server(models.Model):
     name = models.CharField(max_length=128)
     desc = models.TextField(blank=True, default="")
-    operator = models.ForeignKey(User)
+    operator = models.ForeignKey(User, related_name="servers")
     address = models.IPAddressField(null=True)
     port = models.IntegerField(null=True)
     game = models.CharField(max_length=128)
@@ -29,17 +29,16 @@ class Server(models.Model):
                 q = SourceQuery(self.address, self.port or 27015)
                 return q.getInfo()
             except:
-                raise
-                return None
+                return self.desc
         elif self.server_type == 'MINE':
             # query minecraft
             try:
                 q = MinecraftQuery(self.address, self.port or 25565)
                 return q.get_rules()
             except:
-                return None
+                return self.desc
         # default stuff
-        return None
+        return self.desc
 
     @property
     def host_alive(self):

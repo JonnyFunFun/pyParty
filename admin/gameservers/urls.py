@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^(?P<server_id>\d+)/edit/?$', 'admin.gameservers.views.edit'),
     url(r'^(?P<server_id>\d+)/delete/?$', 'admin.gameservers.views.delete'),
     url(r'^(?P<server_id>\d+)/alive/?$', 'admin.gameservers.views.alive'),
+    url(r'^(?P<server_id>\d+)/approve/?$', 'admin.gameservers.views.approve'),
 )

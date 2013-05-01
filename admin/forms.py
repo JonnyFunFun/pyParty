@@ -22,6 +22,12 @@ class SettingsForm(forms.Form):
 
     lan_name = forms.CharField(initial=get_setting('lan_name'))
 
+    goodbye_survey = forms.ChoiceField(
+        widget=forms.CheckboxInput,
+        label="Goodbye Survey",
+        initial=(get_setting('goodbye_survey') == '1')
+    )
+
     enable_music = forms.ChoiceField(
         widget=forms.CheckboxInput,
         label="Music",
@@ -67,7 +73,8 @@ class SettingsForm(forms.Form):
                 Field('site_name', css_class='input-xlarge'),
                 Field('site_title', rows="3", css_class='input-xlarge'),
                 Field('welcome_msg', rows="3", css_class='input-xlarge'),
-                Field('lan_name', css_class='input-xlarge')
+                Field('lan_name', css_class='input-xlarge'),
+                Field('goodbye_survey')
             ),
             Tab('Enabled Modules',
                 Field('enable_music'),

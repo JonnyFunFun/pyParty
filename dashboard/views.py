@@ -1,8 +1,8 @@
-# Create your views here.
 from global_decorators import render_to
 from django.template import Context, loader
 from admin.settings import get_setting
 from django.http import HttpResponseServerError
+from announcements.models import Announcement
 import sys
 
 
@@ -11,6 +11,7 @@ def index(request):
     message = get_setting('welcome_msg')
     title = "Dashboard"
     icon = "home"
+    announcements = Announcement.latest(3)
     return locals()
 
 def custom_500(request):

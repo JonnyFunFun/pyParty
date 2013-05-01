@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from admin.settings import get_setting
+from django.conf import settings
 import random, string
 
 
@@ -20,6 +21,11 @@ class PyPartyAccountAndAuthenticationMiddleware(object):
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             request.user = user
             auth.login(request, up.user)
+            if request.path not in ['/favicon.ico'] and not settings.STATIC_URL in request.path:
+                if up.departed:
+                    up.departed = False
+                    up.save()
+                    messages.success(request, "Welcome back to the LAN!")
         except UserProfile.DoesNotExist:
             # if we're the first user, we're always an admin
             first_admin = (User.objects.count() == 0)

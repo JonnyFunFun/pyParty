@@ -22,6 +22,13 @@ project.  Some *planned* features include:
 - Benchmark competitions
 - and more!
 
+##Requirements
+
+A list of required Python packages can be found in `requirements.txt`.  These are all available via PyPi and can be easily installed with `pip install -r requirements.txt`.
+
+pyParty requires Python 2.6 or better.  It is tested against 2.6 and 2.7.  Compatability with Python 3 is unknown at this time.
+
+
 ##License
 
 pyParty is released under the MIT License and is copyright &copy; 2013 [Jonathan Enzinna](http://www.jonathanenzinna.com/).

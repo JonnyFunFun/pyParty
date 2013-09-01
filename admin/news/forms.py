@@ -11,7 +11,7 @@ class AnnouncementForm(forms.ModelForm):
 
     helper = FormHelper()
     helper.form_enctype = 'multipart/form-data'
-    helper.form_action = '/admin/news/new/'
+    helper.form_action = '/admin/news/save/'
     helper.layout = Layout(
         Field('title'),
         Field('body'),

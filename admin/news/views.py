@@ -11,16 +11,16 @@ from django.utils import simplejson
 @require_POST
 def delete(request, news_id):
     try:
-        song = Announcement.objects.get(id=news_id)
+        news = Announcement.objects.get(id=news_id)
     except Announcement.DoesNotExist:
-        return HttpResponse(simplejson.dumps({"success": False, "error": "Song not found"}), mimetype='application/json')
-    song.delete()
+        return HttpResponse(simplejson.dumps({"success": False, "error": "News article not found"}), mimetype='application/json')
+    news.delete()
     return HttpResponse(simplejson.dumps({"success": True}), mimetype='application/json')
 
 
 @admin_only
 @require_POST
-def new(request):
+def save(request):
     announcement_data = request.POST.copy()
     announcement_data['author'] = request.user.id
     form = AnnouncementForm(data=announcement_data)

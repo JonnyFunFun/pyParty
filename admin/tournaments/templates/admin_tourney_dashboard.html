@@ -1,70 +1,42 @@
 {% extends "application.html" %}
+{% load crispy_forms_tags %}
 
-{% block shortcut-group %}
-    <ul class="a-btn-group">
-        <li>
-            <a href="/admin/users/" class="a-btn grd-white" rel="tooltip" title="account administration">
-                <span></span>
-                <span><i class="icofont-user color-silver-dark"></i></span>
-                <span class="color-silver-dark"><i class="icofont-user color-teal"></i></span>
-                <div class="badge badge-success">{{ user_count }}</div> <!--don't use span here!-->
-            </a>
-        </li>
-        <li>
-            <a href="/admin/music/" class="a-btn grd-white" rel="tooltip" title="music administration">
-                <span></span>
-                <span><i class="icofont-music color-silver-dark"></i></span>
-                <span class="color-silver-dark"><i class="icofont-music color-teal"></i></span>
-                {% if music_request_count != 0 %}
-                    <div class="badge badge-info">{{ music_request_count }}</div>
-                {% endif %}
-            </a>
-        </li>
-        <li>
-            <a href="/admin/servers/" class="a-btn grd-white" rel="tooltip" title="server management">
-                <span></span>
-                <span><i class="icofont-hdd color-silver-dark"></i></span>
-                <span class="color-silver-dark"><i class="icofont-hdd color-teal"></i></span>
-                {% if server_approval_count != 0 %}
-                    <div class="badge badge-important">{{ server_approval_count }}</div> <!--don't use span here!-->
-                {% endif %}
-            </a>
-        </li>
-        <li>
-            <a href="/admin/tournaments/" class="a-btn grd-white" rel="tooltip" title="tournament administration">
-                <span></span>
-                <span><i class="icofont-trophy color-silver-dark"></i></span>
-                <span class="color-silver-dark"><i class="icofont-trophy color-teal"></i></span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/noms/" class="a-btn grd-white" rel="tooltip" title="nom-nom-noms settings">
-                <span></span>
-                <span><i class="icofont-glass color-silver-dark"></i></span>
-                <span class="color-silver-dark"><i class="icofont-glass color-teal"></i></span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/benchmarks/" class="a-btn grd-white" rel="tooltip" title="benchmarks administration">
-                <span></span>
-                <span><i class="icofont-bar-chart color-silver-dark"></i></span>
-                <span class="color-silver-dark"><i class="icofont-bar-chart color-teal"></i></span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/gallery/" class="a-btn grd-white" rel="tooltip" title="gallery administration">
-                <span></span>
-                <span><i class="icofont-picture color-silver-dark"></i></span>
-                <span class="color-silver-dark"><i class="icofont-picture color-teal"></i></span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/settings/" class="a-btn grd-white" rel="tooltip" title="system settings">
-                <span></span>
-                <span><i class="icofont-cogs color-silver-dark"></i></span>
-                <span class="color-silver-dark"><i class="icofont-cogs color-teal"></i></span>
-            </a>
-        </li>
-        <li class="clearfix"></li>
-    </ul>
+{% block content %}
+    <div class="span7">
+        <table id="music_table" class="table datatable table-bordered table-striped responsive">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Posted</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="span4 well">
+        <h4>Make an announcement</h4>
+        {% crispy tournament_form %}
+    </div>
+
+    <div class="clearfix"></div>
+    <!-- modal -->
+    <div id="confirm-delete-modal" class="modal hide fade">
+        <div class="modal-header">
+            <a href="#" class="close">&times;</a>
+            <h3>Delete this tournament?</h3>
+        </div>
+        <div class="modal-body">
+            <p>You are about to delete one tournament from the database, this procedure is irreversible.</p>
+            <p>Do you want to proceed?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:confirmedDelete('/admin/tournament/{0}/delete/')" class="btn danger">Yes</a>
+            <a href="javascript:$('#confirm-delete-modal').modal('hide')" class="btn secondary">No</a>
+        </div>
+    </div>
+    <!-- /modal -->
 {% endblock %}

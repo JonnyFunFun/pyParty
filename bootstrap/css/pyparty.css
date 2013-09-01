@@ -11,6 +11,7 @@
 @import 'select2.css';
 @import 'jquery.percentageloader.css';
 @import 'toastr.css';
+@import 'datetimepicker.css';
 
 /** web fonts **/
 @font-face {

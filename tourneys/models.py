@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from math import ceil, log
 from django.db.models import Q
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Tournament(models.Model):
@@ -9,6 +10,7 @@ class Tournament(models.Model):
     game = models.CharField(max_length=128)
     starts = models.DateTimeField()
     ends = models.DateTimeField()
+    team_size = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(16)])
 
     @property
     def bracket_depth(self):

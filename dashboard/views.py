@@ -14,6 +14,7 @@ def index(request):
     announcements = Announcement.latest(3)
     return locals()
 
+
 def custom_500(request):
     t = loader.get_template('500.html')
     value, tb = sys.exc_info()[:2]

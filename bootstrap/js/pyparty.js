@@ -246,6 +246,10 @@ $(document).ready(function() {
             }
         })
     });
+    /* datetime picker */
+    $('input.datetimeinput').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii'
+    });
     /* toastr notices */
     get_notices();
 });

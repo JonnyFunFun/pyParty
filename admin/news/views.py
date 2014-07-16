@@ -1,7 +1,7 @@
 from admin.decorators import admin_only
 from django.views.decorators.http import require_POST
 from announcements.models import Announcement
-from forms import AnnouncementForm
+from admin.news.forms import AnnouncementForm
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson

@@ -1,9 +1,9 @@
 from global_decorators import render_to
-from models import Server
+from servers.models import Server
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.utils import simplejson as json
-from forms import GameServerRegistrationForm
+from servers.forms import GameServerRegistrationForm
 
 
 @render_to('servers_list.html')

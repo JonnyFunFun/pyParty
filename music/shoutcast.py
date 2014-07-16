@@ -1,6 +1,7 @@
-from models import Music
+from __future__ import print_function
+from music.models import Music
 from django.core.urlresolvers import resolve
-import id3reader
+from id3reader import id3reader
 import os
 import array
 import logging
@@ -30,7 +31,7 @@ class ShoutCastStream(object):
             "icy-pub:1\r\n",
             "icy-br:128\r\n\r\n"
         ]
-        print "Starting streaming to %s (%s)" % (request.META.get('REMOTE_ADDR'), request.META.get('HTTP_USER_AGENT'))
+        print("Starting streaming to %s (%s)" % (request.META.get('REMOTE_ADDR'), request.META.get('HTTP_USER_AGENT')))
         self.getNextSong()
 
     def __iter__(self):
@@ -51,7 +52,7 @@ class ShoutCastStream(object):
             Music.objects.filter(playing=True).update(playing=False)
             song.playing = True
             song.save()
-            print "Next song to play: %s" % fileName
+            print("Next song to play: %s" % fileName)
             self.fd = open(fileName, 'rb')
             self.file_size = os.path.getsize(fileName)
             # if there is valid ID3 data, read it out of the file first,
@@ -100,4 +101,4 @@ class ShoutCastStream(object):
     def __del__(self):
         self.fd.close()
         Music.objects.filter(playing=True).update(playing=False)
-        print "Shoutcast stream closed."
+        print("Shoutcast stream closed.")

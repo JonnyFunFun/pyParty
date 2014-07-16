@@ -1,4 +1,4 @@
-from models import UserProfile, FLAG_ADMIN
+from accounts.models import UserProfile, FLAG_ADMIN
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import HttpResponseRedirect

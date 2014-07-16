@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.http import require_POST
 from music.models import MusicSource, Music, Request
-from forms import NewMusicSourceForm
+from admin.jukebox.forms import NewMusicSourceForm
 from django.views.decorators.http import condition
 from music.scanner import scan_media
 from django.utils import simplejson

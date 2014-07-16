@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from servers.models import Server
 from music.models import Music
-from tourneys.models import Tournament
+from tournaments.models import Tournament
 from admin.settings import get_setting
 from django.utils import simplejson as json
 from datetime import datetime, timedelta

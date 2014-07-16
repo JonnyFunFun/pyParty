@@ -164,7 +164,7 @@ INSTALLED_APPS = (
     'admin.food',
     'servers',
     'admin.gameservers',
-    'tourneys',
+    'tournaments',
     'admin.tournaments',
     'chat',
     'gallery',

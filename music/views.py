@@ -3,9 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.messages import warning
 from django.utils import simplejson as json
 from django.db.models import Q
-from shoutcast import ShoutCastStream
+from music.shoutcast import ShoutCastStream
 from global_decorators import render_to, require_section_enabled
-from models import Music
+from music.models import Music
 
 
 @condition(etag_func=None)

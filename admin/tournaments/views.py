@@ -2,9 +2,9 @@ from global_decorators import render_to
 from admin.decorators import admin_only
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect
-from forms import SimpleTournamentForm
+from admin.tournaments.forms import SimpleTournamentForm
 from django.contrib import messages
-from tourneys.models import Tournament
+from tournaments.models import Tournament
 from datetime import datetime
 
 

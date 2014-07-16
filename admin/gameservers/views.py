@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.http import require_POST
 from servers.models import Server
-from forms import GameServerForm
+from admin.gameservers.forms import GameServerForm
 import simplejson as json
 
 

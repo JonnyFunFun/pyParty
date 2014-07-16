@@ -5,6 +5,13 @@ from django.db.models import Q
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
+TOURNAMENT_MODES = (
+    ('SE', 'Single Elimination'),
+    ('DE', 'Double Elimination'),
+    ('XX', 'Custom')
+)
+
+
 class Tournament(models.Model):
     name = models.CharField(max_length=128)
     game = models.CharField(max_length=128)

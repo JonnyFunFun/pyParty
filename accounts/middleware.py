@@ -5,7 +5,9 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from admin.settings import get_setting
 from django.conf import settings
-import random, string
+import random
+import string
+from hooks import PartyHooks
 
 
 class PyPartyAccountAndAuthenticationMiddleware(object):
@@ -13,6 +15,7 @@ class PyPartyAccountAndAuthenticationMiddleware(object):
     def process_request(self, request):
         if request.user.is_authenticated():
             return
+        PartyHooks.execute_hook('user.prelogin', request=request)
         hostname = request.META['REMOTE_HOST'] or request.META['REMOTE_ADDR']
         try:
             # reverse the profile back to user based on hostname
@@ -25,6 +28,7 @@ class PyPartyAccountAndAuthenticationMiddleware(object):
                 if up.departed:
                     up.departed = False
                     up.save()
+                    PartyHooks.execute_hook('user.returns')
                     messages.success(request, "Welcome back to the LAN!")
         except UserProfile.DoesNotExist:
             # if we're the first user, we're always an admin

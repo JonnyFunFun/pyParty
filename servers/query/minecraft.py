@@ -7,7 +7,7 @@ import time
 
 
 class MinecraftQuery:
-    MAGIC_PREFIX = '\xFE\xFD'
+    MAGIC_PREFIX = b'\xFE\xFD'
     PACKET_TYPE_CHALLENGE = 9
     PACKET_TYPE_QUERY = 0
     HUMAN_READABLE_NAMES = dict(
@@ -40,7 +40,7 @@ class MinecraftQuery:
     def send_raw(self, data):
         self.socket.sendto(self.MAGIC_PREFIX + data, self.addr)
 
-    def send_packet(self, type, data=''):
+    def send_packet(self, type, data=b''):
         self.send_raw(struct.pack('>B', type) + self.id_packed + self.challenge_packed + data)
 
     def read_packet(self):

@@ -26,16 +26,23 @@ project.  Some *planned* features include:
 
 A list of required Python packages can be found in `requirements.txt`.  These are all available via PyPi and can be easily installed with `pip install -r requirements.txt`.
 
-pyParty requires Python 2.6 or better.  It is tested against 2.6 and 2.7.  Compatability with Python 3 is unknown at this time.
+pyParty requires Python 2.6 or better and is compatible with Python 3.  It is tested against 2.7 and 3.4, specifically.
 
 
 ##License
 
-pyParty is released under the MIT License and is copyright &copy; 2013 [Jonathan Enzinna](http://www.jonathanenzinna.com/).
+pyParty is released under the MIT License and is copyright &copy; 2014 [Jonathan Enzinna](http://www.jonathanenzinna.com/).
 A copy of the license is available in the LICENSE file.
 
 ## Credits
 
+pyParty uses the following open-source libraries:
+- [id3reader](https://github.com/teragonaudio/id3reader), by Nik Reiman
+- [jQuery custom checkboxes](http://widowmaker.kiev.ua/checkbox/), by Khavilo Dmitry
+- [handlebars](http://handlebarsjs.com/), by Yehuda Katz
+
 Credit for the design goes to [Stilearning](https://wrapbootstrap.com/theme/stilearn-admin-template-WB0TFD2S0)
-from [WrapBootstrap](https://wrapbootstrap.com/?ref=jonnyfunfun).  pyParty uses the awesome [Bootstrap](http://twitter.github.com/bootstrap/)
+from [WrapBootstrap](https://wrapbootstrap.com/?ref=jonnyfunfun).
+
+pyParty uses the awesome [Bootstrap](http://twitter.github.com/bootstrap/)
 from Twitter and proudly uses [jQuery](http://jquery.com/).

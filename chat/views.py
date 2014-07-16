@@ -1,6 +1,6 @@
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseBadRequest
-from models import Message
+from chat.models import Message
 import simplejson as json
 
 @require_POST

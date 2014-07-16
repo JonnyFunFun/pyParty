@@ -5,8 +5,8 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from admin.settings import get_setting
-from survey.forms import DepartingSurvey
-from forms import ProfileForm
+from accounts.survey.forms import DepartingSurvey
+from accounts.forms import ProfileForm
 
 
 @render_to('edit_profile.html')

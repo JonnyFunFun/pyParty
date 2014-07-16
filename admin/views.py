@@ -1,13 +1,13 @@
 from admin.news.forms import AnnouncementForm
-from decorators import admin_only
+from admin.decorators import admin_only
 from global_decorators import render_to
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-from settings import save_setting, get_setting
-from models import PYPARTY_SETTINGS
-from forms import SettingsForm
+from admin.settings import save_setting, get_setting
+from admin.models import PYPARTY_SETTINGS
+from admin.forms import SettingsForm
 from servers.models import Server
 from music.models import Music, Request
 from announcements.models import Announcement

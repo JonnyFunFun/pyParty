@@ -1,5 +1,5 @@
 from django import forms
-from models import SurveyEntry
+from accounts.survey.models import SurveyEntry
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, Fieldset
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, TabHolder, Tab

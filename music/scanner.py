@@ -1,7 +1,7 @@
-from models import Music, MusicSource
+from music.models import Music, MusicSource
 from django.db import IntegrityError
 from os.path import join, splitext
-import id3reader
+from id3reader import id3reader
 import os
 import re
 

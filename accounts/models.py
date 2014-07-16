@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
-from rig_info import *
+from accounts.rig_info import *
 from django.conf import settings
 from PIL import Image
 import os.path

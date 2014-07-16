@@ -1,4 +1,5 @@
 *.log
+*.wpu
 *.pot
 *.pyc
 *.db

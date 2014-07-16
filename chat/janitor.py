@@ -1,5 +1,5 @@
 from __future__ import division
-from models import Message
+from chat.models import Message
 from datetime import datetime, timedelta
 from django.conf import settings
 

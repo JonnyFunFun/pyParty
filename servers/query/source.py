@@ -46,7 +46,7 @@ class SourceQuery(object):
             data = self.sock.recv(4096)
         except:
             raise
-            return False
+            #return False
 
         after = time.time()
         data = data[4:]

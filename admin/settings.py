@@ -1,4 +1,4 @@
-from models import Setting, PYPARTY_SETTINGS
+from admin.models import Setting, PYPARTY_SETTINGS
 
 
 def get_setting(name):
@@ -23,3 +23,5 @@ def save_setting(name, value):
         value = '1'
     setting.value = value
     setting.save()
+
+TEMPLATE_DEBUG = True

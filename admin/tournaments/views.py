@@ -15,6 +15,7 @@ def index(request, tournament_form=None):
     title = "Tournament Administration Dashboard"
     if not tournament_form:
         tournament_form = SimpleTournamentForm()
+    tournaments = Tournament.objects.all()
     return locals()
 
 
@@ -41,7 +42,7 @@ def save(request):
     form = SimpleTournamentForm(data=tournament_data)
     if form.is_valid():
         form.save()
-        messages.success(request, "Announcement added successfully!")
+        messages.success(request, "Tournament added successfully!")
         return HttpResponseRedirect('/admin/tournaments/')
     else:
         messages.error(request, "There was an error adding your announcement!")

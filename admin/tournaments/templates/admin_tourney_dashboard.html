@@ -6,13 +6,26 @@
         <table id="music_table" class="table datatable table-bordered table-striped responsive">
             <thead>
             <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Posted</th>
+                <th>Name</th>
+                <th>Game</th>
+                <th>Starts</th>
+                <th>Ends</th>
+                <th>T.Size</th>
+                <th>Teams</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
+            {% for tournament in tournaments %}
+            <tr>
+                <td>{{ tournament.name }}</td>
+                <td>{{ tournament.game }}</td>
+                <td>{{ tournament.starts }}</td>
+                <td>{{ tournament.ends }}</td>
+                <td>{{ tournament.team_size }}</td>
+                <td>{{ tournament.team_count }}/{{ tournament.max_teams|default:"&infin;" }}</td>
+            </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

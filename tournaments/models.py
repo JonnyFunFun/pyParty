@@ -18,6 +18,7 @@ class Tournament(models.Model):
     starts = models.DateTimeField()
     ends = models.DateTimeField()
     team_size = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(16)])
+    max_teams = models.IntegerField(null=True)
 
     @property
     def bracket_depth(self):
@@ -26,6 +27,10 @@ class Tournament(models.Model):
     @property
     def total_seeds(self):
         return int(ceil(self.teams.count() / 2))
+    
+    @property
+    def team_count(self):
+        return self.teams.count()
 
     @staticmethod
     def team_array_seed_sort(left, right):
